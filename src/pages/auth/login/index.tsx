@@ -52,15 +52,10 @@ const Login = () => {
       })
     );
   };
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter") {
-      console.log("Phím Enter đã được nhấn trên nút!");
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack direction="column" gap="16px">
+      <Stack direction="column" gap="16px" sx={{ pb: 1 }}>
         <Heading title="Welcome back" subtitle="Login to your account!" />
         <TextField
           id="email"
@@ -92,6 +87,7 @@ const Login = () => {
           }}
         />
         <Button
+          size="large"
           color="secondary"
           variant="contained"
           type="submit"

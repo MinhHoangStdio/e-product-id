@@ -1,12 +1,19 @@
 import { Box, Paper, useTheme } from "@mui/material";
 import Navbar from "../../components/layout/Navbar";
 import SidebarCustom from "../../components/layout/Sidebar";
-import { useAppSelector } from "../../hooks/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
+import { useEffect } from "react";
+import { categoryActions } from "../../store/category/categorySlice";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const dispatch = useAppDispatch();
   const isCollapseSidebar = useAppSelector(
     (state) => state.layout.isCollapseSidebar
   );
+
+  useEffect(() => {
+    dispatch(categoryActions.getListCategories({}));
+  }, [dispatch]);
   const theme = useTheme();
   return (
     <>
