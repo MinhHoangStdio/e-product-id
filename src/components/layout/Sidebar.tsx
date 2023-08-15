@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
+import { authActions } from "../../store/auth/authSlice";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { authActions } from "../../store/auth/authSlice";
 
-const Item = ({ title, to, icon, selected, setSelected }: any) => {
+const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
     <MenuItem
       active={selected === title}
-      onClick={() => setSelected(title)}
+      onClick={() => {
+        setSelected(title);
+        navigate(to);
+      }}
       icon={icon}
     >
-      <Link to={to}>
-        <Typography>{title}</Typography>
-      </Link>
+      <Typography>{title}</Typography>
     </MenuItem>
   );
 };
@@ -66,6 +68,17 @@ const SidebarCustom = () => {
         "& .ps-menu-button": {
           borderRadius: 2,
           paddingLeft: "15px !important",
+        },
+        "& .ps-submenu-content": {
+          padding: "4px",
+          background: `${theme.palette.background.default} !important`,
+        },
+        "& .ps-submenu-content .ps-menuitem-root": {
+          border: "1px solid #ccc",
+        },
+        "& .ps-menuitem-root": {
+          marginBottom: "4px",
+          borderRadius: 2,
         },
         position: "fixed",
         top: 0,
@@ -125,12 +138,22 @@ const SidebarCustom = () => {
 
           <Box>
             <Item
+              navigate={navigate}
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              navigate={navigate}
+              title="Categories"
+              to="/categories"
+              icon={<CategoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             {!isCollapseSidebar && (
               <Typography variant="h6" sx={{ m: "15px 0 5px 20px" }}>
                 Settings

@@ -1,14 +1,16 @@
-import { Action, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import alertReducer from "./alert/alertSlice";
 import rootSaga from "./rootSaga";
 import authReducer from "./auth/authSlice";
 import layoutReducer from "./layout/layoutSlice";
+import categoryReducer from "./category/categorySlice";
 
 const reducers = combineReducers({
   alert: alertReducer,
   auth: authReducer,
   layout: layoutReducer,
+  category: categoryReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
