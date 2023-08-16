@@ -9,9 +9,9 @@ const PrivateRoutes = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/*" element={<Navigate to="/home" />} />
-        <Route path="/login" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Dashboard />} />
+        <Route path="/*" element={<Navigate to="/dashboard" />} />
+        <Route path="/login" element={<Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/categories" element={<Categories />} />
       </Routes>
     </MainLayout>

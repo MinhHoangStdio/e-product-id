@@ -4,16 +4,14 @@ import SidebarCustom from "../../components/layout/Sidebar";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { useEffect } from "react";
 import { categoryActions } from "../../store/category/categorySlice";
+import CreateCategoryModal from "../../components/modal/category/CreateAndEditCategoryModal";
+import ConfirmModal from "../../components/modal/category/ConfirmDeleteCategoryModal";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
   const isCollapseSidebar = useAppSelector(
     (state) => state.layout.isCollapseSidebar
   );
-
-  useEffect(() => {
-    dispatch(categoryActions.getListCategories({}));
-  }, [dispatch]);
   const theme = useTheme();
   return (
     <>
@@ -30,6 +28,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <Box sx={{ px: 4, bgcolor: theme.palette.background.default }}>
           <Paper sx={{ minHeight: "85vh" }}>{children}</Paper>
         </Box>
+        <CreateCategoryModal />
+        <ConfirmModal />
       </main>
     </>
   );

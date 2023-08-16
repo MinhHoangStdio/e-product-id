@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { authActions } from "../../store/auth/authSlice";
@@ -13,7 +13,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
     <MenuItem
-      active={selected === title}
+      active={selected.toLowerCase() === title.toLowerCase()}
       onClick={() => {
         setSelected(title);
         navigate(to);
@@ -28,12 +28,18 @@ const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
 const SidebarCustom = () => {
   const theme = useTheme();
   const userInfo = useAppSelector((state) => state.auth.dataUser);
+  const location = useLocation();
+  const path = location.pathname.replace("/", "");
   const isCollapseSidebar = useAppSelector(
     (state) => state.layout.isCollapseSidebar
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState("");
+
+  useEffect(() => {
+    setSelected(path);
+  }, []);
 
   const handleLogout = async () => {
     dispatch(
