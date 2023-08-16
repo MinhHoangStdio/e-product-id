@@ -125,7 +125,7 @@ export default function CategoriesTable() {
                 <IconButton
                   aria-label="edit"
                   onClick={(e) => {
-                    console.log({ row });
+                    dispatch(categoryActions.selectedCategory(row));
                   }}
                   color="secondary"
                 >
@@ -133,10 +133,10 @@ export default function CategoriesTable() {
                 </IconButton>
                 <IconButton
                   sx={{ marginLeft: "0px" }}
-                  onClick={(e) => {
-                    console.log({ row });
-                  }}
                   aria-label="delete"
+                  onClick={(e) => {
+                    dispatch(categoryActions.selectedId(row.id));
+                  }}
                   color="error"
                 >
                   <CancelIcon fontSize="medium" />
@@ -148,10 +148,6 @@ export default function CategoriesTable() {
       </React.Fragment>
     );
   }
-
-  useEffect(() => {
-    dispatch(categoryActions.getListCategories({}));
-  }, [dispatch]);
 
   return (
     <Box>

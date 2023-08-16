@@ -12,17 +12,26 @@ import {
 } from "@mui/material";
 import CategoriesTable from "./table";
 import { SearchOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../hooks/store";
+import { layoutActions } from "../../store/layout/layoutSlice";
+import { categoryActions } from "../../store/category/categorySlice";
 
 const Categories = () => {
+  const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
+  const [params, setParams] = useState({ limit: 15, page: 1 });
   const handleSearch = (value: string) => {
     setSearch(value);
   };
   const handleFilter = (value: string) => {
     setType(value);
   };
+
+  useEffect(() => {
+    dispatch(categoryActions.getListCategories(params));
+  }, [dispatch, params]);
   return (
     <>
       <Box
@@ -207,13 +216,20 @@ const Categories = () => {
             </Button>
           </Box> */}
         </Box>
-        <Button variant="contained" size="large" color="secondary">
+        <Button
+          onClick={() => {
+            dispatch(layoutActions.openModal());
+          }}
+          variant="contained"
+          size="large"
+          color="secondary"
+        >
           Create a new category
         </Button>
       </Box>
       <CategoriesTable />
       {/* <Pagination count={totalPagePagination(pagination)} page={pagination?.page + 1 || 1} onChange={handlePagination} /> */}
-      <Stack sx={{ pt: "20px" }}>
+      <Stack sx={{ py: "20px" }}>
         <Pagination count={10} page={1} />
       </Stack>
     </>

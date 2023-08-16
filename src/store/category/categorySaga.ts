@@ -4,10 +4,16 @@ import { Action } from "../../types/actions";
 import categoryApi from "../../api/category";
 import { Category } from "../../types/categories";
 import { categoryActions } from "./categorySlice";
+import { layoutActions } from "../layout/layoutSlice";
 
 function* handleGetListCaregories(action: Action) {
   try {
-    const params = action.payload;
+    let params;
+    if (action.payload.limit) {
+      params = action.payload;
+    } else {
+      params = { page: 1, limit: 15 };
+    }
     const response: { data: Category[] } = yield call(
       categoryApi.getListCategories,
       params
@@ -24,9 +30,103 @@ function* handleGetListCaregories(action: Action) {
   }
 }
 
+function* handleCreateCategory(action: Action) {
+  try {
+    const { params, onReset } = action.payload;
+    const response: { data: any } = yield call(
+      categoryApi.createCategory,
+      params
+    );
+    onReset();
+    yield put(categoryActions.createCategorySuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Create a new category success",
+        type: "success",
+      })
+    );
+    yield put(categoryActions.getListCategories({}));
+    yield put(layoutActions.closeModal());
+  } catch (error) {
+    yield put(categoryActions.createCategoryFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Create a new categories failed",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleEditCategory(action: Action) {
+  try {
+    const { params, id, onReset } = action.payload;
+    const response: { data: any } = yield call(
+      categoryApi.editCategory,
+      id,
+      params
+    );
+    onReset();
+    yield put(categoryActions.editCategorySuccess());
+    yield put(categoryActions.resetSelectedCategory());
+    yield put(
+      alertActions.showAlert({
+        text: "Edit category success",
+        type: "success",
+      })
+    );
+    yield put(categoryActions.getListCategories({}));
+    yield put(layoutActions.closeModal());
+  } catch (error) {
+    yield put(categoryActions.editCategoryFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Edit category failed",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleDeleteCategory(action: Action) {
+  try {
+    const id = action.payload;
+    const response: { data: any } = yield call(categoryApi.removeCategory, id);
+    yield put(categoryActions.removeCategorySuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Remove category success",
+        type: "success",
+      })
+    );
+    yield put(categoryActions.getListCategories({}));
+    yield put(layoutActions.closeModalConfirm());
+  } catch (error) {
+    yield put(categoryActions.removeCategoryFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Remove category failed",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleSelectedCategory(action: Action) {
+  yield put(layoutActions.openModal());
+}
+function* handleSelectedIdCategory(action: Action) {
+  yield put(layoutActions.openModalConfirm());
+}
+
 function* watchCategoryFlow() {
   yield all([
     takeLatest(categoryActions.getListCategories.type, handleGetListCaregories),
+    takeLatest(categoryActions.createCategory.type, handleCreateCategory),
+    takeLatest(categoryActions.editCategory.type, handleEditCategory),
+    takeLatest(categoryActions.removeCategory.type, handleDeleteCategory),
+    takeLatest(categoryActions.selectedCategory.type, handleSelectedCategory),
+    takeLatest(categoryActions.selectedId.type, handleSelectedIdCategory),
   ]);
 }
 
