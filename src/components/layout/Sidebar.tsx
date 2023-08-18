@@ -9,6 +9,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
+import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
@@ -156,6 +157,14 @@ const SidebarCustom = () => {
               title="Categories"
               to="/categories"
               icon={<CategoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
+              title="Products"
+              to="/products"
+              icon={<WysiwygIcon />}
               selected={selected}
               setSelected={setSelected}
             />
