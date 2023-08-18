@@ -6,6 +6,7 @@ import authReducer from "./auth/authSlice";
 import layoutReducer from "./layout/layoutSlice";
 import categoryReducer from "./category/categorySlice";
 import modalReducer from "./modal/modalSlice";
+import productReducer from "./product/productSlice";
 
 const reducers = combineReducers({
   alert: alertReducer,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   layout: layoutReducer,
   category: categoryReducer,
   modal: modalReducer,
+  product: productReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
