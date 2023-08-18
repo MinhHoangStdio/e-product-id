@@ -32,7 +32,6 @@
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
     "sass": "^1.62.1",
-    "slick-carousel": "^1.8.1",
     "yup": "^1.2.0"
   },
   "devDependencies": {
