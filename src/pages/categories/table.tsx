@@ -23,6 +23,8 @@ import { HeadCell } from "../../types/table";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { categoryActions } from "../../store/category/categorySlice";
 import { Category } from "../../types/categories";
+import { modalActions } from "../../store/modal/modalSlice";
+import { ParamsModalConfirm } from "../../types/modal";
 
 export default function CategoriesTable() {
   const dispatch = useAppDispatch();
@@ -32,6 +34,20 @@ export default function CategoriesTable() {
 
   const [order] = useState("asc");
   const [orderBy] = useState("trackingNo");
+
+  const confirmDelete = (data: Category) => {
+    const params: ParamsModalConfirm = {
+      title: "Confirm",
+      content: (
+        <span>
+          Do you want to delete a category <b>"{data.name}"</b>?
+        </span>
+      ),
+      onAction: () => dispatch(categoryActions.removeCategory(data.id)),
+      buttonText: "Delete",
+    };
+    dispatch(modalActions.showModal(params));
+  };
 
   const headCells: HeadCell[] = [
     {
@@ -135,7 +151,7 @@ export default function CategoriesTable() {
                   sx={{ marginLeft: "0px" }}
                   aria-label="delete"
                   onClick={(e) => {
-                    dispatch(categoryActions.selectedId(row.id));
+                    dispatch(() => confirmDelete(row));
                   }}
                   color="error"
                 >
