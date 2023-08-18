@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Category } from "../../types/categories";
+import { Pagination } from "../../types/pagination";
 
 interface categoryState {
   listCategories: Category[];
+  pagination: Pagination | null;
   loadingListCategories: boolean;
   loadingCreateCategory: boolean;
   categorySelected: Category;
@@ -13,6 +15,7 @@ interface categoryState {
 
 const initialState: categoryState = {
   listCategories: [],
+  pagination: null,
   loadingListCategories: false,
   loadingCreateCategory: false,
   categorySelected: {
@@ -33,7 +36,8 @@ const categorySlice = createSlice({
       state.loadingListCategories = true;
     },
     getListCategoriesSuccess(state, action) {
-      state.listCategories = action.payload;
+      state.listCategories = action.payload.data;
+      state.pagination = action.payload.paginate;
       state.loadingListCategories = false;
     },
     getListCategoriesFailed(state) {

@@ -5,12 +5,14 @@ import rootSaga from "./rootSaga";
 import authReducer from "./auth/authSlice";
 import layoutReducer from "./layout/layoutSlice";
 import categoryReducer from "./category/categorySlice";
+import modalReducer from "./modal/modalSlice";
 
 const reducers = combineReducers({
   alert: alertReducer,
   auth: authReducer,
   layout: layoutReducer,
   category: categoryReducer,
+  modal: modalReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

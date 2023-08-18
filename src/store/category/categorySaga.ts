@@ -5,6 +5,7 @@ import categoryApi from "../../api/category";
 import { Category } from "../../types/categories";
 import { categoryActions } from "./categorySlice";
 import { layoutActions } from "../layout/layoutSlice";
+import { Pagination } from "../../types/pagination";
 
 function* handleGetListCaregories(action: Action) {
   try {
@@ -14,10 +15,8 @@ function* handleGetListCaregories(action: Action) {
     } else {
       params = { page: 1, limit: 15 };
     }
-    const response: { data: Category[] } = yield call(
-      categoryApi.getListCategories,
-      params
-    );
+    const response: { data: { data: Category[]; paginate: Pagination } } =
+      yield call(categoryApi.getListCategories, params);
     yield put(categoryActions.getListCategoriesSuccess(response.data));
   } catch (error) {
     yield put(categoryActions.getListCategoriesFailed());
@@ -100,7 +99,6 @@ function* handleDeleteCategory(action: Action) {
       })
     );
     yield put(categoryActions.getListCategories({}));
-    yield put(layoutActions.closeModalConfirm());
   } catch (error) {
     yield put(categoryActions.removeCategoryFailed());
     yield put(
@@ -115,9 +113,6 @@ function* handleDeleteCategory(action: Action) {
 function* handleSelectedCategory(action: Action) {
   yield put(layoutActions.openModal());
 }
-function* handleSelectedIdCategory(action: Action) {
-  yield put(layoutActions.openModalConfirm());
-}
 
 function* watchCategoryFlow() {
   yield all([
@@ -126,7 +121,6 @@ function* watchCategoryFlow() {
     takeLatest(categoryActions.editCategory.type, handleEditCategory),
     takeLatest(categoryActions.removeCategory.type, handleDeleteCategory),
     takeLatest(categoryActions.selectedCategory.type, handleSelectedCategory),
-    takeLatest(categoryActions.selectedId.type, handleSelectedIdCategory),
   ]);
 }
 
