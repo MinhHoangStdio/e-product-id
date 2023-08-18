@@ -2,10 +2,8 @@ import { Box, Paper, useTheme } from "@mui/material";
 import Navbar from "../../components/layout/Navbar";
 import SidebarCustom from "../../components/layout/Sidebar";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { useEffect } from "react";
-import { categoryActions } from "../../store/category/categorySlice";
 import CreateCategoryModal from "../../components/modal/category/CreateAndEditCategoryModal";
-import ConfirmModal from "../../components/modal/category/ConfirmDeleteCategoryModal";
+import ConfirmModal from "../../components/modal/ConfirmModal";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
