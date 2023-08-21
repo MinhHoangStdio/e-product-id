@@ -1,6 +1,7 @@
-import { Button, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
+import CustomButton from "../share/CustomButton";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -163,25 +164,19 @@ const BaseModal: React.FC<ModalProps> = ({
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex flex-row items-center justify-between gap-4 w-full">
-                  <Button
-                    variant="outlined"
+                  <CustomButton
                     color="error"
-                    size="large"
-                    disabled={disabled}
                     onClick={handleClose}
-                  >
-                    Cancel
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    size="large"
+                    label="Cancel"
                     disabled={disabled}
+                  />
+
+                  <CustomButton
+                    color="primary"
                     onClick={handleSubmit}
-                  >
-                    {actionLabel}
-                  </Button>
+                    label={actionLabel}
+                    disabled={disabled}
+                  />
                 </div>
                 {footer}
               </div>

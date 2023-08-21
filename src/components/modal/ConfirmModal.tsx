@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { modalActions } from "../../store/modal/modalSlice";
+import CustomButton from "../share/CustomButton";
 
 const titleModal = {
   fontSize: "20px",
@@ -69,21 +70,19 @@ export default function ConfirmModal() {
         </DialogContentText>
       </DialogContent>
       <DialogActions sx={footerModal}>
-        <Button
-          variant="outlined"
-          startIcon={<CloseIcon style={{ fontSize: "16px" }} />}
+        <CustomButton
+          color="error"
           onClick={handleClose}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="secondary"
-          variant="contained"
-          startIcon={<CheckIcon style={{ fontSize: "16px" }} />}
+          label="Cancel"
+          Icon={<CloseIcon style={{ fontSize: "16px" }} />}
+        />
+
+        <CustomButton
+          color="primary"
           onClick={handleSubmit}
-        >
-          {buttonText || "OK"}
-        </Button>
+          label={buttonText || "OK"}
+          Icon={<CheckIcon style={{ fontSize: "16px" }} />}
+        />
       </DialogActions>
     </Dialog>
   );

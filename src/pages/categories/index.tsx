@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   InputAdornment,
   InputLabel,
@@ -17,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { categoryActions } from "../../store/category/categorySlice";
 import { totalPagePagination } from "../../utils/pagination";
+import CustomButton from "../../components/share/CustomButton";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -94,16 +94,14 @@ const Categories = () => {
             </Select>
           </FormControl>
         </Box>
-        <Button
+
+        <CustomButton
+          color="primary"
+          label=" Create a new category"
           onClick={() => {
             dispatch(layoutActions.openModal());
           }}
-          variant="contained"
-          size="large"
-          color="secondary"
-        >
-          Create a new category
-        </Button>
+        />
       </Box>
       <CategoriesTable />
       <Stack sx={{ py: "20px" }}>

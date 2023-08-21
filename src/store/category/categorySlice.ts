@@ -4,8 +4,10 @@ import { Pagination } from "../../types/pagination";
 
 interface categoryState {
   listCategories: Category[];
+  allListCategories: Category[];
   pagination: Pagination | null;
   loadingListCategories: boolean;
+  loadingAllListCategories: boolean;
   loadingCreateCategory: boolean;
   categorySelected: Category;
   idCategorySelected: any;
@@ -15,8 +17,10 @@ interface categoryState {
 
 const initialState: categoryState = {
   listCategories: [],
+  allListCategories: [],
   pagination: null,
   loadingListCategories: false,
+  loadingAllListCategories: false,
   loadingCreateCategory: false,
   categorySelected: {
     name: "",
@@ -42,6 +46,17 @@ const categorySlice = createSlice({
     },
     getListCategoriesFailed(state) {
       state.loadingListCategories = false;
+    },
+
+    getAllListCategories(state) {
+      state.loadingAllListCategories = true;
+    },
+    getAllListCategoriesSuccess(state, action) {
+      state.allListCategories = action.payload.data;
+      state.loadingAllListCategories = false;
+    },
+    getAllListCategoriesFailed(state) {
+      state.loadingAllListCategories = false;
     },
 
     createCategory(state, action) {

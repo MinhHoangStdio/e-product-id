@@ -1,13 +1,19 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import BaseModal from "../BaseModal";
 import Heading from "../../Heading";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
 import { categoryActions } from "../../../store/category/categorySlice";
-import { TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { layoutActions } from "../../../store/layout/layoutSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface FieldValues {
   name: string;
@@ -21,10 +27,15 @@ const CreateAndEditCategoryModal = () => {
   const isOpenModal = useAppSelector(
     (state) => state.layout.isOpenModalCategory
   );
+  const listAllCategories = useAppSelector(
+    (state) => state.category.allListCategories
+  );
+  const [parentIdLabel, setParentIdLabel] = useState<any>(null);
   const typeModal = categorySelected.name ? "edit" : "create";
   const onCloseModal = () => {
     dispatch(layoutActions.closeModal());
     dispatch(categoryActions.resetSelectedCategory());
+    setParentIdLabel(null);
     reset();
   };
   const {
@@ -49,8 +60,13 @@ const CreateAndEditCategoryModal = () => {
     if (categorySelected.name) {
       setValue("name", categorySelected.name);
       setValue("parent_id", categorySelected.parent_id);
+      setParentIdLabel(categorySelected.parent_id);
     }
   }, [categorySelected, setValue]);
+
+  useEffect(() => {
+    dispatch(categoryActions.getAllListCategories());
+  }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (typeModal == "create") {
@@ -90,14 +106,38 @@ const CreateAndEditCategoryModal = () => {
         required
         helperText={errors.name?.message}
       />
-      <TextField
+      {/* <TextField
         id="parent_id"
         label="Parent ID"
         inputProps={{ ...register("parent_id") }}
         error={!!errors.parent_id?.message}
         required
         helperText={errors.parent_id?.message}
-      />
+      /> */}
+
+      <TextField
+        variant="outlined"
+        select
+        id="parent_id"
+        label="Parent"
+        value={parentIdLabel}
+        InputLabelProps={{ shrink: !!parentIdLabel }}
+        onChange={(e: any) => {
+          setParentIdLabel(e.target.value);
+          if (e.target.value === -1) {
+            setValue("parent_id", null);
+          } else {
+            setValue("parent_id", e.target.value);
+          }
+        }}
+      >
+        <MenuItem value={-1}>None</MenuItem>
+        {listAllCategories.map((cate) => (
+          <MenuItem key={cate.id} value={cate.id}>
+            {cate.name}
+          </MenuItem>
+        ))}
+      </TextField>
     </div>
   );
 

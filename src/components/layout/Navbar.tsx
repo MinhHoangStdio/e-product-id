@@ -43,7 +43,7 @@ const Navbar = () => {
 
       {/* ICONS */}
       <Stack direction="row" alignItems="center" spacing={1}>
-        <IconButton
+        {/* <IconButton
           sx={{
             width: "40px",
             height: "40px",
@@ -55,7 +55,7 @@ const Navbar = () => {
           ) : (
             <LightModeOutlinedIcon />
           )}
-        </IconButton>
+        </IconButton> */}
         <IconButton sx={{ width: "40px", height: "40px" }}>
           <NotificationsOutlinedIcon />
         </IconButton>
