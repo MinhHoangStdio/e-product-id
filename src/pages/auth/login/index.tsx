@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../../store/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../../../components/share/CustomButton";
 
 interface FormValues {
   email: string;
@@ -86,15 +87,7 @@ const Login = () => {
             ),
           }}
         />
-        <Button
-          size="large"
-          color="secondary"
-          variant="contained"
-          type="submit"
-          tabIndex={0}
-        >
-          Login
-        </Button>
+        <CustomButton color="primary" type="submit" label="Login" />
       </Stack>
     </form>
   );

@@ -9,7 +9,8 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
-import WysiwygIcon from '@mui/icons-material/Wysiwyg';
+import WysiwygIcon from "@mui/icons-material/Wysiwyg";
+import { colorToken } from "../../theme/colorToken";
 
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
@@ -21,13 +22,18 @@ const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
       }}
       icon={icon}
     >
-      <Typography>{title}</Typography>
+      <Typography fontWeight="500">{title}</Typography>
     </MenuItem>
   );
 };
 
 const SidebarCustom = () => {
   const theme = useTheme();
+
+  //test theme
+  const mode = useAppSelector((state) => state.layout.theme);
+  const colors = colorToken(mode);
+
   const userInfo = useAppSelector((state) => state.auth.dataUser);
   const location = useLocation();
   const path = location.pathname.replace("/", "");
@@ -53,23 +59,25 @@ const SidebarCustom = () => {
   return (
     <Box
       sx={{
+        bgcolor: `${colors.sidebar.background}`,
         "& .ps-sidebar-root": {
           height: "100%",
           px: 1,
+          borderRight: `1px solid ${colors.sidebar.border} !important`,
         },
         "& .ps-sidebar-container": {
-          bgcolor: `${theme.palette.background.default} !important`,
+          bgcolor: `${colors.sidebar.background} !important`,
         },
         "& .ps-active": {
-          bgcolor: "#CCC",
+          bgcolor: `${colors.sidebar.bgselect}`,
           borderRadius: 2,
         },
-        "& .ps-active > .ps-menu-button:hover": {
-          bgcolor: "#CCC",
+        "& .ps-menuitem-root.ps-active > .ps-menu-button:hover": {
+          bgcolor: `${colors.sidebar.bgselect}`,
           borderRadius: 2,
         },
-        "& .ps-menu-button:hover": {
-          bgcolor: "#CCC",
+        "& .ps-menuitem-root > .ps-menu-button:hover": {
+          bgcolor: `${colors.sidebar.bghover}`,
           borderRadius: 2,
         },
         "& .ps-menu-button": {

@@ -29,6 +29,25 @@ function* handleGetListCaregories(action: Action) {
   }
 }
 
+function* handleGetAllListCaregories(action: Action) {
+  try {
+    const params = { limit: 100 };
+    const response: { data: { data: Category[] } } = yield call(
+      categoryApi.getListCategories,
+      params
+    );
+    yield put(categoryActions.getAllListCategoriesSuccess(response.data));
+  } catch (error) {
+    yield put(categoryActions.getAllListCategoriesFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Cannot get all list categories",
+        type: "error",
+      })
+    );
+  }
+}
+
 function* handleCreateCategory(action: Action) {
   try {
     const { params, onReset } = action.payload;
@@ -117,6 +136,10 @@ function* handleSelectedCategory(action: Action) {
 function* watchCategoryFlow() {
   yield all([
     takeLatest(categoryActions.getListCategories.type, handleGetListCaregories),
+    takeLatest(
+      categoryActions.getAllListCategories.type,
+      handleGetAllListCaregories
+    ),
     takeLatest(categoryActions.createCategory.type, handleCreateCategory),
     takeLatest(categoryActions.editCategory.type, handleEditCategory),
     takeLatest(categoryActions.removeCategory.type, handleDeleteCategory),
