@@ -112,7 +112,7 @@ export const tokens = (mode: "dark" | "light") => ({
           600: "#58E5FF",
           700: "#45E2FF",
           800: "#2BDDFE",
-          900: "#00D7FF",
+          900: "#00accc",
         },
       }),
 });
@@ -130,7 +130,7 @@ export const themeSettings = (mode: "light" | "dark") => {
               main: colors.primary[500],
             },
             secondary: {
-              main: colors.blueAccent[700],
+              main: colors.blueAccent[900],
             },
             neutral: {
               dark: colors.grey[700],
@@ -147,7 +147,7 @@ export const themeSettings = (mode: "light" | "dark") => {
               main: colors.primary[100],
             },
             secondary: {
-              main: colors.blueAccent[700],
+              main: colors.blueAccent[900],
             },
             neutral: {
               dark: colors.grey[700],

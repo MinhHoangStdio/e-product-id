@@ -1,7 +1,13 @@
-import { TableCell, TableHead, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableHead, TableRow } from "@mui/material";
 import { IOrderTableHead } from "../../types/table";
 
-const OrderTableHead = ({ headCells, order, orderBy }: IOrderTableHead) => {
+const OrderTableHead = ({
+  headCells,
+  order,
+  orderBy,
+  checked,
+  handleCheckAll,
+}: IOrderTableHead) => {
   return (
     <TableHead>
       <TableRow>
@@ -17,7 +23,15 @@ const OrderTableHead = ({ headCells, order, orderBy }: IOrderTableHead) => {
               paddingLeft: headCell?.paddingLeft,
             }}
           >
-            {headCell?.label}
+            {headCell.id === "checkbox" ? (
+              <Checkbox
+                color="secondary"
+                onChange={handleCheckAll}
+                checked={checked}
+              />
+            ) : (
+              headCell?.label
+            )}
           </TableCell>
         ))}
       </TableRow>
