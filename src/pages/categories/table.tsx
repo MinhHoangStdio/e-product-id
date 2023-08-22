@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import * as React from "react";
 import {
   Box,
@@ -10,6 +10,7 @@ import {
   IconButton,
   Stack,
   SortDirection,
+  Checkbox,
 } from "@mui/material";
 import OrderTableHead from "../../components/table/OrderTableHead";
 
@@ -25,12 +26,35 @@ import { categoryActions } from "../../store/category/categorySlice";
 import { Category } from "../../types/categories";
 import { modalActions } from "../../store/modal/modalSlice";
 import { ParamsModalConfirm } from "../../types/modal";
+import { checkAllCondition, handleCheckAll } from "../../utils/table";
 
 export default function CategoriesTable() {
   const dispatch = useAppDispatch();
   const listCategories = useAppSelector(
     (state) => state.category.listCategories
   );
+
+  const [listChecked, setListChecked] = useState<any[]>([]);
+  const isCheckAll = useMemo(
+    () => checkAllCondition(listCategories, listChecked),
+    [listCategories, listChecked]
+  );
+  const handleChecked = (e: any) => {
+    const id = Number(e.target.value);
+    const tmpList = [...listChecked];
+    //check xem id đã tồn tại trong listChecked chưa, nếu có sẽ trả về giá trị >-1
+    const index = tmpList.indexOf(id);
+    //handle toggle selected
+    if (index > -1) {
+      tmpList.splice(index, 1);
+    } else {
+      tmpList.push(id);
+    }
+    setListChecked(tmpList);
+  };
+  const resetChecked = () => {
+    setListChecked([]);
+  };
 
   const [order] = useState("asc");
   const [orderBy] = useState("trackingNo");
@@ -50,6 +74,13 @@ export default function CategoriesTable() {
   };
 
   const headCells: HeadCell[] = [
+    {
+      id: "checkbox",
+      align: "left",
+      disablePadding: false,
+      label: "",
+      width: "40px",
+    },
     {
       id: "categoryId",
       align: "left",
@@ -80,7 +111,7 @@ export default function CategoriesTable() {
     },
     {
       id: "action",
-      align: "left",
+      align: "center",
       disablePadding: false,
       label: "Actions",
       fontSize: "15px",
@@ -92,6 +123,14 @@ export default function CategoriesTable() {
     return (
       <React.Fragment>
         <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+          <TableCell component="th" scope="row" align="left">
+            <Checkbox
+              color="secondary"
+              value={row?.id}
+              checked={listChecked?.includes(row?.id)}
+              onChange={handleChecked}
+            />
+          </TableCell>
           <TableCell align="left" className="table-cell">
             {row.id}
           </TableCell>
@@ -137,7 +176,7 @@ export default function CategoriesTable() {
 
           <TableCell align="left" className="table-cell">
             <Box>
-              <Stack direction="row" spacing={1}>
+              <Stack direction="row" spacing={1} justifyContent="center">
                 <IconButton
                   aria-label="edit"
                   onClick={(e) => {
@@ -165,6 +204,10 @@ export default function CategoriesTable() {
     );
   }
 
+  useEffect(() => {
+    resetChecked();
+  }, [listCategories]);
+
   return (
     <Box>
       <TableContainer
@@ -182,6 +225,10 @@ export default function CategoriesTable() {
             headCells={headCells}
             order={order as SortDirection | undefined}
             orderBy={orderBy}
+            checked={isCheckAll}
+            handleCheckAll={() =>
+              handleCheckAll(listCategories, listChecked, setListChecked)
+            }
           />
 
           {listCategories.length ? (

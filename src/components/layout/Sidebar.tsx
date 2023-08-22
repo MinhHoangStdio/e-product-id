@@ -11,6 +11,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import { colorToken } from "../../theme/colorToken";
+import userDefaultImg from "../../assets/user/user.png";
 
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
@@ -136,7 +137,11 @@ const SidebarCustom = () => {
           {!isCollapseSidebar && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <Avatar sx={{ width: 80, height: 80 }} alt={userInfo?.name} />
+                <Avatar
+                  sx={{ width: 80, height: 80 }}
+                  src={userDefaultImg}
+                  alt={userInfo?.name}
+                />
               </Box>
               <Box textAlign="center">
                 <Typography
