@@ -7,13 +7,14 @@ import { productActions } from "./productSlice";
 import { layoutActions } from "../layout/layoutSlice";
 import { Pagination } from "../../types/pagination";
 
-function* handleGetListProducts(action: Action) {  
+function* handleGetListProducts(action: Action) {
   try {
-    const params = action.payload.limit ? action.payload : { page: 1, limit: 15 };
-    const response: { data: {data: DetailProduct[], pagination: Pagination } } = yield call(
-      productApi.getListProducts,
-      params
-    );
+    const params = action.payload.limit
+      ? action.payload
+      : { page: 1, limit: 15 };
+    const response: {
+      data: { data: DetailProduct[]; pagination: Pagination };
+    } = yield call(productApi.getListProducts, params);
     yield put(productActions.getListProductsSuccess(response.data));
   } catch (error) {
     yield put(productActions.getListProductsFailed());
@@ -26,10 +27,13 @@ function* handleGetListProducts(action: Action) {
   }
 }
 
-function* handleGetDetailProduct(action: Action) {  
+function* handleGetDetailProduct(action: Action) {
   try {
     const id = action.payload;
-    const response: { data: DetailProduct } = yield call(productApi.getDetailProduct, id);
+    const response: { data: DetailProduct } = yield call(
+      productApi.getDetailProduct,
+      id
+    );
 
     yield put(productActions.getDetailProductSuccess(response.data));
   } catch (error) {
@@ -43,10 +47,14 @@ function* handleGetDetailProduct(action: Action) {
   }
 }
 
-function* handleAproveProduct(action: Action) {  
+function* handleAproveProduct(action: Action) {
   try {
     const { id, params } = action.payload;
-    const response: { data: Product } = yield call(productApi.approveProduct, id, params);
+    const response: { data: Product } = yield call(
+      productApi.approveProduct,
+      id,
+      params
+    );
 
     yield put(productActions.approveProductSuccess());
     yield put(
@@ -55,10 +63,9 @@ function* handleAproveProduct(action: Action) {
         type: "success",
       })
     );
-    
+
     yield put(productActions.getDetailProduct(id));
     yield put(layoutActions.closeModalConfirm());
-
   } catch (error) {
     yield put(productActions.approveProductFailed());
     yield put(
@@ -70,10 +77,14 @@ function* handleAproveProduct(action: Action) {
   }
 }
 
-function* handleRejectProduct(action: Action) {  
+function* handleRejectProduct(action: Action) {
   try {
     const { id, params } = action.payload;
-    const response: { data: Product } = yield call(productApi.approveProduct, id, params);
+    const response: { data: Product } = yield call(
+      productApi.approveProduct,
+      id,
+      params
+    );
 
     yield put(productActions.approveProductSuccess());
     yield put(
@@ -82,10 +93,9 @@ function* handleRejectProduct(action: Action) {
         type: "success",
       })
     );
-    
+
     yield put(productActions.getDetailProduct(id));
     yield put(layoutActions.closeModalConfirm());
-
   } catch (error) {
     yield put(productActions.rejectProductFailed());
     yield put(

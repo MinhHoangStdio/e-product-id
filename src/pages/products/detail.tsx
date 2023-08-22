@@ -7,6 +7,7 @@ import { ParamsModalConfirm } from "../../types/modal";
 import { DetailProduct } from "../../types/products";
 import { modalActions } from "../../store/modal/modalSlice";
 import ImageSlider from "../../components/ImageSlider";
+import { EApprovalRequest, EApprovalStatus } from "../../types/enums/product";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const ProductDetail = () => {
         status,
       },
     };
-    const isApproved = status == "approved";
+    const isApproved = status == EApprovalRequest.Approve;
     const params: ParamsModalConfirm = {
       title: "Confirm",
       content: (
@@ -75,7 +76,7 @@ const ProductDetail = () => {
         </Grid>
         <Grid item xs={8}>
           <Box>
-            {product.approval_status == "requesting" && (
+            {product.approval_status == EApprovalStatus.Requesting && (
               <Box
                 display={"flex"}
                 gap={1}
@@ -94,7 +95,10 @@ const ProductDetail = () => {
                     color="secondary"
                     onClick={(e) => {
                       dispatch(() =>
-                        confirmApproveOrReject(product, "approved")
+                        confirmApproveOrReject(
+                          product,
+                          EApprovalRequest.Approve
+                        )
                       );
                     }}
                   >
@@ -106,7 +110,9 @@ const ProductDetail = () => {
                     color="error"
                     sx={{ marginLeft: "15px" }}
                     onClick={(e) => {
-                      dispatch(() => confirmApproveOrReject(product, "reject"));
+                      dispatch(() =>
+                        confirmApproveOrReject(product, EApprovalRequest.Reject)
+                      );
                     }}
                   >
                     {"Reject"}
@@ -125,16 +131,16 @@ const ProductDetail = () => {
               Product name: {product.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Organizer: {product.organizer.name}
+              Organizer: {product?.organization?.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Category: {product.category.name}
+              Category: {product?.category.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
               Approval status: {product.approval_status}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Description: {product.description}
+              Description: {product?.description}
             </Typography>
           </Box>
         </Grid>
