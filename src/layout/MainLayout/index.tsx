@@ -5,6 +5,7 @@ import { useAppSelector } from "../../hooks/store";
 import CreateAndEditCategoryModal from "../../components/modal/category/CreateAndEditCategoryModal";
 import ConfirmModal from "../../components/modal/ConfirmModal";
 import { colorToken } from "../../theme/colorToken";
+import CreateUserModal from "../../components/modal/user/createUser";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const isCollapseSidebar = useAppSelector(
@@ -32,6 +33,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </Box>
         <CreateAndEditCategoryModal />
         <ConfirmModal />
+        <CreateUserModal />
       </main>
     </>
   );

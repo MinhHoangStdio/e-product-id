@@ -5,6 +5,7 @@ interface LayoutType {
   isCollapseSidebar: boolean;
   isOpenModalCategory: boolean;
   isOpenModalConfirm: boolean;
+  isOpenModalUser: boolean;
 }
 
 const initialState: LayoutType = {
@@ -12,6 +13,7 @@ const initialState: LayoutType = {
   isCollapseSidebar: false,
   isOpenModalCategory: false,
   isOpenModalConfirm: false,
+  isOpenModalUser: false,
 };
 
 const layoutSlice = createSlice({
@@ -38,6 +40,13 @@ const layoutSlice = createSlice({
     },
     closeModalConfirm(state) {
       state.isOpenModalConfirm = false;
+    },
+
+    openModalUser(state) {
+      state.isOpenModalUser = true;
+    },
+    closeModalUser(state) {
+      state.isOpenModalUser = false;
     },
   },
 });

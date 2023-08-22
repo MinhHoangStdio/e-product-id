@@ -9,29 +9,31 @@ import {
   Select,
   Stack,
 } from "@mui/material";
-import ProductsTable from "./table";
 import { SearchOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { productActions } from "../../store/product/productSlice";
+import { layoutActions } from "../../store/layout/layoutSlice";
 import { totalPagePagination } from "../../utils/pagination";
+import CustomButton from "../../components/share/CustomButton";
+import { userActions } from "../../store/user/userSlice";
+import UserTable from "./table";
 import { EPagination } from "../../types/enums/pagination";
 
-const Products = () => {
+const Users = () => {
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
+  const [params, setParams] = useState({ limit: EPagination.Limit, page: 1 });
+  const { pagination, loadingListUsers } = useAppSelector(
+    (state) => state.user
+  );
+
   const handleSearch = (value: string) => {
     setSearch(value);
   };
   const handleFilter = (value: string) => {
     setType(value);
   };
-
-  const [params, setParams] = useState({ limit: EPagination.Limit, page: 1 });
-  const { pagination, loadingListProducts } = useAppSelector(
-    (state) => state.product
-  );
 
   const handlePagination = (e: any, value: number) => {
     setParams((prevState) => {
@@ -40,9 +42,8 @@ const Products = () => {
   };
 
   useEffect(() => {
-    dispatch(productActions.getListProducts(params));
+    dispatch(userActions.getListUsers(params));
   }, [dispatch, params]);
-
   return (
     <>
       <Box
@@ -70,7 +71,7 @@ const Products = () => {
                 </InputAdornment>
               }
               aria-describedby="header-search-text"
-              placeholder="Product name"
+              placeholder="User name"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
@@ -94,9 +95,17 @@ const Products = () => {
             </Select>
           </FormControl>
         </Box>
+
+        <CustomButton
+          color="primary"
+          label=" Create a new user"
+          onClick={() => {
+            dispatch(layoutActions.openModalUser());
+          }}
+        />
       </Box>
-      <ProductsTable />
-      <Stack sx={{ pt: "20px" }}>
+      <UserTable />
+      <Stack sx={{ py: "20px" }}>
         <Pagination
           count={pagination ? totalPagePagination(pagination) : 1}
           page={pagination?.page || 1}
@@ -107,4 +116,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Users;

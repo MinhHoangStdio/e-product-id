@@ -12,6 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import { colorToken } from "../../theme/colorToken";
 import userDefaultImg from "../../assets/user/user.png";
+import PeopleIcon from '@mui/icons-material/People';
 
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
@@ -178,6 +179,14 @@ const SidebarCustom = () => {
               title="Products"
               to="/products"
               icon={<WysiwygIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
+              title="Users"
+              to="/users"
+              icon={<PeopleIcon />}
               selected={selected}
               setSelected={setSelected}
             />

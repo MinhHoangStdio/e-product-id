@@ -12,3 +12,9 @@ export interface CurrentUser {
   id: number;
   name: string;
 }
+
+export interface User {
+  email: string;
+  id: number;
+  name: string;
+}

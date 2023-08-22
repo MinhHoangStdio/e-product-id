@@ -17,12 +17,13 @@ import { layoutActions } from "../../store/layout/layoutSlice";
 import { categoryActions } from "../../store/category/categorySlice";
 import { totalPagePagination } from "../../utils/pagination";
 import CustomButton from "../../components/share/CustomButton";
+import { EPagination } from "../../types/enums/pagination";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const [params, setParams] = useState({ limit: 5, page: 1 });
+  const [params, setParams] = useState({ limit: EPagination.Limit, page: 1 });
   const { pagination, loadingListCategories } = useAppSelector(
     (state) => state.category
   );
