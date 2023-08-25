@@ -9,6 +9,8 @@ interface userState {
   loadingListUsers: boolean;
   loadingRemoveUser: boolean;
   loadingCreateUser: boolean;
+  loadingValidUsers: boolean;
+  listValidUsers: User[];
 }
 
 const initialState: userState = {
@@ -18,6 +20,8 @@ const initialState: userState = {
   loadingListUsers: false,
   loadingRemoveUser: false,
   loadingCreateUser: false,
+  loadingValidUsers: false,
+  listValidUsers: [],
 };
 
 const userSlice = createSlice({
@@ -44,6 +48,27 @@ const userSlice = createSlice({
     },
     removeUserFailed(state) {
       state.loadingRemoveUser = false;
+    },
+
+    createUser(state, action) {
+      state.loadingCreateUser = true;
+    },
+    createUserSuccess(state) {
+      state.loadingCreateUser = false;
+    },
+    createUserFailed(state) {
+      state.loadingCreateUser = false;
+    },
+
+    getValidUsers(state) {
+      state.loadingListUsers = true;
+    },
+    getValidUsersSuccess(state, action) {
+      state.listValidUsers = action.payload.data;
+      state.loadingListUsers = false;
+    },
+    getValidUsersFailed(state) {
+      state.loadingListUsers = false;
     },
   },
 });

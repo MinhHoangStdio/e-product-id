@@ -55,19 +55,7 @@ const ProductDetail = () => {
   return (
     (product && (
       <Grid sx={{ width: "100%" }} p={4} container columnSpacing={4}>
-        <Grid
-          sx={{
-            ".slick-dots li": {
-              width: "50px",
-              height: "50px",
-            },
-            ".slick-dots": {
-              bottom: "-61px",
-            },
-          }}
-          item
-          xs={4}
-        >
+        <Grid item xs={4}>
           <ImageSlider
             imagesUrl={product?.images || []}
             urlSelected={urlSelected}
@@ -128,19 +116,20 @@ const ProductDetail = () => {
               })}
             </Typography>
             <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
-              Product name: {product.name}
+              <b>Product name:</b> {product.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Organizer: {product?.organization?.name}
+              <b>Organizer:</b> {product?.organization?.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Category: {product?.category.name}
+              <b>Category:</b> {product?.category.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Approval status: {product.approval_status}
+              <b>Approval status:</b> {product.approval_status}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              Description: {product?.description}
+              <b>Description:</b> <br />
+              {product?.description}
             </Typography>
           </Box>
         </Grid>
