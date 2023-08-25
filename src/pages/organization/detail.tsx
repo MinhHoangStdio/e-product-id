@@ -16,19 +16,19 @@ const OrganizationDetail = () => {
     dispatch(organizationActions.getDetailOrganization(id));
   }, [dispatch]);
 
-  return (
-    organization && (
-      <Box p={4}>
-        <Typography variant="h2">Organization Detail</Typography>
-        <Typography sx={{ fontSize: "16px", mt: 1 }}>
-          <b>Name:</b> {organization.name}
-        </Typography>
-        <Typography sx={{ fontSize: "16px", mt: 1 }}>
-          <b>List members:</b>
-        </Typography>
-        <MemberTable />
-      </Box>
-    )
+  return organization ? (
+    <Box p={4}>
+      <Typography variant="h2">Organization Detail</Typography>
+      <Typography sx={{ fontSize: "16px", mt: 1 }}>
+        <b>Name:</b> {organization.name}
+      </Typography>
+      <Typography sx={{ fontSize: "16px", mt: 1 }}>
+        <b>List members:</b>
+      </Typography>
+      <MemberTable />
+    </Box>
+  ) : (
+    <></>
   );
 };
 
