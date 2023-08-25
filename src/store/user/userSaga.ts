@@ -5,6 +5,8 @@ import { Pagination } from "../../types/pagination";
 import { userActions } from "./userSlice";
 import { User } from "../../types/user";
 import userApi from "../../api/user";
+import { layoutActions } from "../layout/layoutSlice";
+import { EPagination } from "../../types/enums/pagination";
 
 function* handleGetListUsers(action: Action) {
   try {
@@ -49,10 +51,54 @@ function* handleDeleteUser(action: Action) {
   }
 }
 
+function* handleCreateUser(action: Action) {
+  try {
+    const { params, onReset } = action.payload;
+    const response: { data: any } = yield call(userApi.createUser, params);
+    onReset();
+    yield put(userActions.createUserSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Create a new user success",
+        type: "success",
+      })
+    );
+    yield put(userActions.getListUsers({ limit: EPagination.Limit }));
+    yield put(userActions.getValidUsers());
+    yield put(layoutActions.closeModalUser());
+  } catch (error) {
+    yield put(userActions.createUserFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Create a new user failed",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleGetValidUsers() {
+  try {
+    const response: { data: User[] } = yield call(userApi.getValidUsers);
+
+    yield put(userActions.getValidUsersSuccess(response));
+  } catch (error) {
+    yield put(userActions.getValidUsersFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Cannot get valid users",
+        type: "error",
+      })
+    );
+  }
+}
+
 function* watchUserFlow() {
   yield all([
     takeLatest(userActions.getListUsers.type, handleGetListUsers),
     takeLatest(userActions.removeUser.type, handleDeleteUser),
+    takeLatest(userActions.createUser.type, handleCreateUser),
+    takeLatest(userActions.getValidUsers.type, handleGetValidUsers),
   ]);
 }
 

@@ -10,9 +10,11 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import { colorToken } from "../../theme/colorToken";
 import userDefaultImg from "../../assets/user/user.png";
-import PeopleIcon from '@mui/icons-material/People';
+import PeopleIcon from "@mui/icons-material/People";
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 
 const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
   return (
@@ -187,6 +189,22 @@ const SidebarCustom = () => {
               title="Users"
               to="/users"
               icon={<PeopleIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
+              title="Organizations"
+              to="/organizations"
+              icon={<CorporateFareIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
+              title="Consignments"
+              to="/consignments"
+              icon={<ListAltIcon />}
               selected={selected}
               setSelected={setSelected}
             />
