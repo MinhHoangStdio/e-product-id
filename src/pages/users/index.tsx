@@ -71,7 +71,7 @@ const Users = () => {
                 </InputAdornment>
               }
               aria-describedby="header-search-text"
-              placeholder="User name"
+              placeholder="Tên người dùng"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
@@ -80,7 +80,7 @@ const Users = () => {
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
-              Type
+              Loại
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -91,14 +91,14 @@ const Users = () => {
               defaultValue="ALL_STATUS"
               color="secondary"
             >
-              <MenuItem value="ALL_STATUS">All</MenuItem>
+              <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
           </FormControl>
         </Box>
 
         <CustomButton
           color="primary"
-          label=" Create a new user"
+          label="Tạo mới"
           onClick={() => {
             dispatch(layoutActions.openModalUser());
           }}

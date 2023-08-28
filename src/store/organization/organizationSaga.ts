@@ -61,7 +61,7 @@ function* handleCreateOrganization(action: Action) {
     yield put(organizationActions.createOrganizationsuccess());
     yield put(
       alertActions.showAlert({
-        text: "Create a new organization success",
+        text: "Tạo mới tổ chức thành công.",
         type: "success",
       })
     );
@@ -74,7 +74,7 @@ function* handleCreateOrganization(action: Action) {
     yield put(organizationActions.createOrganizationFailed());
     yield put(
       alertActions.showAlert({
-        text: "Create a new organization failed",
+        text: "Tạo mới tổ chức thất bại.",
         type: "error",
       })
     );

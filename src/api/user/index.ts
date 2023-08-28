@@ -13,6 +13,10 @@ const userApi = {
     const url = "/users/valid-user";
     return axiosClient.get(url);
   },
+  getDetailUser(id: any) {
+    const url = `/users/${id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default userApi;

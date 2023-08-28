@@ -72,7 +72,7 @@ export default function ConfirmModal() {
         <CustomButton
           color="error"
           onClick={handleClose}
-          label="Cancel"
+          label="Hủy"
           Icon={<CloseIcon style={{ fontSize: "16px" }} />}
         />
 

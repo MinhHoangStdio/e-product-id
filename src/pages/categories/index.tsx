@@ -71,7 +71,7 @@ const Categories = () => {
                 </InputAdornment>
               }
               aria-describedby="header-search-text"
-              placeholder="Category name"
+              placeholder="Tên danh mục"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
@@ -80,7 +80,7 @@ const Categories = () => {
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
-              Type
+              Loại
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -91,14 +91,14 @@ const Categories = () => {
               defaultValue="ALL_STATUS"
               color="secondary"
             >
-              <MenuItem value="ALL_STATUS">All</MenuItem>
+              <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
           </FormControl>
         </Box>
 
         <CustomButton
           color="primary"
-          label=" Create a new category"
+          label=" Tạo mới"
           onClick={() => {
             dispatch(layoutActions.openModal());
           }}

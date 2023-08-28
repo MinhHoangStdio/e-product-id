@@ -59,7 +59,7 @@ function* handleCreateUser(action: Action) {
     yield put(userActions.createUserSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Create a new user success",
+        text: "Tạo mới người dùng thành công.",
         type: "success",
       })
     );
@@ -70,7 +70,7 @@ function* handleCreateUser(action: Action) {
     yield put(userActions.createUserFailed());
     yield put(
       alertActions.showAlert({
-        text: "Create a new user failed",
+        text: "Tạo mới người dùng thất bại.",
         type: "error",
       })
     );
@@ -93,12 +93,30 @@ function* handleGetValidUsers() {
   }
 }
 
+function* handleGetDetailUser(action: Action) {
+  try {
+    const id = action.payload;
+    const response: { data: User } = yield call(userApi.getDetailUser, id);
+
+    yield put(userActions.getDetailUserSuccess(response.data));
+  } catch (error) {
+    yield put(userActions.getDetailUserFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Cannot get detail user",
+        type: "error",
+      })
+    );
+  }
+}
+
 function* watchUserFlow() {
   yield all([
     takeLatest(userActions.getListUsers.type, handleGetListUsers),
     takeLatest(userActions.removeUser.type, handleDeleteUser),
     takeLatest(userActions.createUser.type, handleCreateUser),
     takeLatest(userActions.getValidUsers.type, handleGetValidUsers),
+    takeLatest(userActions.getDetailUser.type, handleGetDetailUser),
   ]);
 }
 

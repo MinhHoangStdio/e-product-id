@@ -160,17 +160,17 @@ const SidebarCustom = () => {
           )}
 
           <Box>
-            <Item
+            {/* <Item
               navigate={navigate}
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               navigate={navigate}
-              title="Categories"
+              title="Danh mục"
               to="/categories"
               icon={<CategoryIcon />}
               selected={selected}
@@ -178,7 +178,7 @@ const SidebarCustom = () => {
             />
             <Item
               navigate={navigate}
-              title="Products"
+              title="Sản phẩm"
               to="/products"
               icon={<WysiwygIcon />}
               selected={selected}
@@ -186,7 +186,7 @@ const SidebarCustom = () => {
             />
             <Item
               navigate={navigate}
-              title="Users"
+              title="Người dùng"
               to="/users"
               icon={<PeopleIcon />}
               selected={selected}
@@ -194,7 +194,7 @@ const SidebarCustom = () => {
             />
             <Item
               navigate={navigate}
-              title="Organizations"
+              title="Tổ chức"
               to="/organizations"
               icon={<CorporateFareIcon />}
               selected={selected}
@@ -202,7 +202,7 @@ const SidebarCustom = () => {
             />
             <Item
               navigate={navigate}
-              title="Consignments"
+              title="Lô hàng"
               to="/consignments"
               icon={<ListAltIcon />}
               selected={selected}
@@ -211,7 +211,7 @@ const SidebarCustom = () => {
 
             {!isCollapseSidebar && (
               <Typography variant="h6" sx={{ m: "15px 0 5px 20px" }}>
-                Settings
+                Cài đặt
               </Typography>
             )}
             <MenuItem
@@ -219,7 +219,7 @@ const SidebarCustom = () => {
               onClick={handleLogout}
               icon={<LogoutIcon />}
             >
-              <Typography>Logout</Typography>
+              <Typography>Đăng xuất</Typography>
             </MenuItem>
           </Box>
         </Menu>

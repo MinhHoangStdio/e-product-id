@@ -167,7 +167,7 @@ const BaseModal: React.FC<ModalProps> = ({
                   <CustomButton
                     color="error"
                     onClick={handleClose}
-                    label="Cancel"
+                    label="Hủy"
                     disabled={disabled}
                   />
 

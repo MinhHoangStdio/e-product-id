@@ -70,7 +70,7 @@ const Products = () => {
                 </InputAdornment>
               }
               aria-describedby="header-search-text"
-              placeholder="Product name"
+              placeholder="Tên sản phẩm"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
@@ -79,7 +79,7 @@ const Products = () => {
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
-              Type
+              Loại
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -90,7 +90,7 @@ const Products = () => {
               defaultValue="ALL_STATUS"
               color="secondary"
             >
-              <MenuItem value="ALL_STATUS">All</MenuItem>
+              <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
           </FormControl>
         </Box>

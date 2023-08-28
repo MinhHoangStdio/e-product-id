@@ -47,9 +47,9 @@ const ConsignmentDetail = () => {
     <>
       {(consignment && (
         <Box p={4}>
-          <Typography variant="h1">Consignment Information</Typography>
+          <Typography variant="h1">Thông tin lô hàng</Typography>
           <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Consignment name:</b> {consignment.name}
+            <b>Tên lô hàng:</b> {consignment.name}
           </Typography>
           {consignment.product && (
             <Link to={`/products/${consignment.product.id}`}>
@@ -60,18 +60,19 @@ const ConsignmentDetail = () => {
                   "&:hover": { color: "#00B3D5" },
                 }}
               >
-                <b>Product:</b> {consignment.product?.name}
+                <b>Tên sản phẩm:</b> {consignment.product?.name}
               </Typography>
             </Link>
           )}
           <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Amount:</b> {consignment.amount}
+            <b>Số lượng:</b> {consignment.amount}
           </Typography>
           <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Description:</b> {consignment?.description}
+            <b>Mô tả:</b> {consignment?.description}
           </Typography>
           <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Status:</b> {consignment?.is_sold_out ? "Sold out" : "In stock"}
+            <b>Trạng thái:</b>{" "}
+            {consignment?.is_sold_out ? "Hết hàng" : "Còn hàng"}
           </Typography>
         </Box>
       )) || (
@@ -122,7 +123,7 @@ const ConsignmentDetail = () => {
       {(chains?.length || "") && (
         <>
           <Typography variant="h2" pl={4}>
-            List chains
+            Danh sách công đoạn
           </Typography>
           {chains?.map((chain, index) => (
             <Box p={4} key={index} pt={0}>
@@ -156,7 +157,7 @@ const ConsignmentDetail = () => {
                   {chain.images?.map((image, index) => (
                     <img
                       src={image}
-                      alt="Product image"
+                      alt="Ảnh công đoạn"
                       style={{
                         height: 300,
                         objectFit: "cover",
