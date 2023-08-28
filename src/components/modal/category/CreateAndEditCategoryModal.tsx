@@ -51,7 +51,7 @@ const CreateAndEditCategoryModal = () => {
     },
     resolver: yupResolver(
       yup.object().shape({
-        name: yup.string().required("Insert name"),
+        name: yup.string().required("Vui lòng nhập tên danh mục"),
       })
     ),
   });
@@ -93,14 +93,12 @@ const CreateAndEditCategoryModal = () => {
     <div className="flex flex-col gap-4">
       <Heading
         title={
-          typeModal == "create"
-            ? "Create a new category"
-            : "Edit a new category"
+          typeModal == "create" ? "Tạo mới danh mục" : "Chỉnh sửa danh mục"
         }
       />
       <TextField
         id="name"
-        label="Name"
+        label="Tên"
         inputProps={{ ...register("name") }}
         error={!!errors.name?.message}
         required
@@ -119,7 +117,7 @@ const CreateAndEditCategoryModal = () => {
         variant="outlined"
         select
         id="parent_id"
-        label="Parent"
+        label="Danh mục cha"
         value={parentIdLabel}
         InputLabelProps={{ shrink: !!parentIdLabel }}
         onChange={(e: any) => {
@@ -148,9 +146,11 @@ const CreateAndEditCategoryModal = () => {
       }
       isOpen={isOpenModal}
       title={
-        typeModal == "create" ? "Create a new category" : "Edit a category"
+        typeModal == "create"
+          ? "Tạo mới một danh mục"
+          : "Chỉnh sửa một danh mục"
       }
-      actionLabel={typeModal == "create" ? "Create" : "Edit"}
+      actionLabel={typeModal == "create" ? "Tạo" : "Chỉnh sửa"}
       onClose={onCloseModal}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

@@ -24,7 +24,7 @@ const ProductDetail = () => {
     };
     const isApproved = status == EApprovalRequest.Approve;
     const params: ParamsModalConfirm = {
-      title: "Confirm",
+      title: "Xác nhận",
       content: (
         <span>
           Do you want to {isApproved ? "approve" : "reject"} a product{" "}
@@ -73,7 +73,7 @@ const ProductDetail = () => {
               >
                 <Typography variant="h4" color={"red"}>
                   {
-                    "This product has submitted a request for approval but has not been approved yet."
+                    "Sản phẩm này đã gửi yêu cầu phê duyệt nhưng vẫn chưa được phê duyệt."
                   }
                 </Typography>
                 <div>
@@ -90,7 +90,7 @@ const ProductDetail = () => {
                       );
                     }}
                   >
-                    {"Approve"}
+                    {"Chấp nhận"}
                   </Button>
                   <Button
                     variant="outlined"
@@ -103,7 +103,7 @@ const ProductDetail = () => {
                       );
                     }}
                   >
-                    {"Reject"}
+                    {"Từ chối"}
                   </Button>
                 </div>
               </Box>
@@ -116,19 +116,19 @@ const ProductDetail = () => {
               })}
             </Typography>
             <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
-              <b>Product name:</b> {product.name}
+              <b>Tên sản phẩm:</b> {product.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              <b>Organizer:</b> {product?.organization?.name}
+              <b>Tổ chức:</b> {product?.organization?.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              <b>Category:</b> {product?.category.name}
+              <b>Danh mục:</b> {product?.category.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              <b>Approval status:</b> {product.approval_status}
+              <b>Trạng thái phê duyệt:</b> {product.approval_status}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
-              <b>Description:</b> <br />
+              <b>Mô tả:</b> <br />
               {product?.description}
             </Typography>
           </Box>

@@ -71,7 +71,7 @@ const Organizations = () => {
                 </InputAdornment>
               }
               aria-describedby="header-search-text"
-              placeholder="Organization name"
+              placeholder="Tên tổ chức"
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
             />
@@ -80,7 +80,7 @@ const Organizations = () => {
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
-              Type
+              Lọai
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -91,14 +91,14 @@ const Organizations = () => {
               defaultValue="ALL_STATUS"
               color="secondary"
             >
-              <MenuItem value="ALL_STATUS">All</MenuItem>
+              <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
           </FormControl>
         </Box>
 
         <CustomButton
           color="primary"
-          label=" Create a new organization"
+          label="Tạo mới"
           onClick={() => {
             dispatch(layoutActions.openModalOrganization());
           }}

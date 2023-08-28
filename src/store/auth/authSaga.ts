@@ -17,7 +17,7 @@ function* handleLogin(action: Action) {
     yield put(authActions.loginFailed());
     yield put(
       alertActions.showAlert({
-        text: "The username or password you entered did not match our records. Please try again.",
+        text: "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.",
         type: "error",
       })
     );

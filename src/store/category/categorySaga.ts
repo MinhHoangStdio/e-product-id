@@ -22,7 +22,7 @@ function* handleGetListCaregories(action: Action) {
     yield put(categoryActions.getListCategoriesFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get list categories",
+        text: "Không thể lấy danh sách danh mục.",
         type: "error",
       })
     );
@@ -41,7 +41,7 @@ function* handleGetAllListCaregories(action: Action) {
     yield put(categoryActions.getAllListCategoriesFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get all list categories",
+        text: "Không thể lấy danh sách danh mục.",
         type: "error",
       })
     );
@@ -59,7 +59,7 @@ function* handleCreateCategory(action: Action) {
     yield put(categoryActions.createCategorySuccess());
     yield put(
       alertActions.showAlert({
-        text: "Create a new category success",
+        text: "Tạo mới danh mục thành công.",
         type: "success",
       })
     );
@@ -69,7 +69,7 @@ function* handleCreateCategory(action: Action) {
     yield put(categoryActions.createCategoryFailed());
     yield put(
       alertActions.showAlert({
-        text: "Create a new categories failed",
+        text: "Đã có lỗi xảy ra trong quá trình tạo danh mục. Vui lòng thử lại.",
         type: "error",
       })
     );
@@ -89,7 +89,7 @@ function* handleEditCategory(action: Action) {
     yield put(categoryActions.resetSelectedCategory());
     yield put(
       alertActions.showAlert({
-        text: "Edit category success",
+        text: "Chỉnh sửa danh mục thành công.",
         type: "success",
       })
     );
@@ -99,7 +99,7 @@ function* handleEditCategory(action: Action) {
     yield put(categoryActions.editCategoryFailed());
     yield put(
       alertActions.showAlert({
-        text: "Edit category failed",
+        text: "Đã có lỗi xảy ra trong quá trình chỉnh sửa danh mục. Vui lòng thử lại.",
         type: "error",
       })
     );
@@ -113,7 +113,7 @@ function* handleDeleteCategory(action: Action) {
     yield put(categoryActions.removeCategorySuccess());
     yield put(
       alertActions.showAlert({
-        text: "Remove category success",
+        text: "Xóa danh mục thành công.",
         type: "success",
       })
     );
@@ -122,7 +122,7 @@ function* handleDeleteCategory(action: Action) {
     yield put(categoryActions.removeCategoryFailed());
     yield put(
       alertActions.showAlert({
-        text: "Remove category failed",
+        text: "Xóa danh mục thất bại.",
         type: "error",
       })
     );

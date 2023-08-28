@@ -53,11 +53,11 @@ const CreateOrganizationModal = () => {
   } = useForm<FieldValues>({
     resolver: yupResolver(
       yup.object().shape({
-        name: yup.string().required("Please enter name"),
+        name: yup.string().required("Vui lòng nhập vào tên tổ chức"),
         selectedUser: yup
           .number()
-          .min(1, "Please choose a user")
-          .required("Please choose a user"),
+          .min(1, "Vui lòng chọn một chủ sở hữu")
+          .required("Vui lòng chọn một chủ sở hữu"),
       })
     ),
   });
@@ -85,10 +85,10 @@ const CreateOrganizationModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Create a new organization" />
+      <Heading title="Tạo mới một tổ chức." />
       <TextField
         id="name"
-        label="Organization Name"
+        label="Tên tổ chức"
         inputProps={{ ...register("name") }}
         error={!!errors.name?.message}
         required
@@ -98,7 +98,7 @@ const CreateOrganizationModal = () => {
         variant="outlined"
         select
         id="selectedUser"
-        label="Owner"
+        label="Chủ sở hữu"
         value={selectedUser}
         InputLabelProps={{ shrink: !!selectedUser }}
         onChange={(e: any) => {
@@ -122,7 +122,7 @@ const CreateOrganizationModal = () => {
         name="members"
         id="members"
         variant="outlined"
-        label="Members"
+        label="Thành viên"
         SelectProps={{
           multiple: true,
           value: formState.members,
@@ -141,8 +141,8 @@ const CreateOrganizationModal = () => {
   return (
     <BaseModal
       isOpen={isOpenModal}
-      title="Create a new organization"
-      actionLabel="Create"
+      title="Tạo mới một tổ chức."
+      actionLabel="Tạo mới"
       onClose={onCloseModal}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

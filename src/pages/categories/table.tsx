@@ -61,14 +61,14 @@ export default function CategoriesTable() {
 
   const confirmDelete = (data: Category) => {
     const params: ParamsModalConfirm = {
-      title: "Confirm",
+      title: "Xác nhận",
       content: (
         <span>
-          Do you want to delete a category <b>"{data.name}"</b>?
+          Bạn có chắc chắc muốn xóa danh mục này không <b>"{data.name}"</b>?
         </span>
       ),
       onAction: () => dispatch(categoryActions.removeCategory(data.id)),
-      buttonText: "Delete",
+      buttonText: "Xóa",
     };
     dispatch(modalActions.showModal(params));
   };
@@ -92,28 +92,28 @@ export default function CategoriesTable() {
       id: "categoryName",
       align: "left",
       disablePadding: false,
-      label: "Name",
+      label: "Tên danh mục",
       fontSize: "15px",
     },
     {
       id: "rootCategoryId",
       align: "left",
       disablePadding: false,
-      label: "Root Category ID",
+      label: "Danh mục cha",
       fontSize: "15px",
     },
     {
       id: "product quantity",
       align: "left",
       disablePadding: false,
-      label: "Product quantity",
+      label: "Số lượng sản phẩm",
       fontSize: "15px",
     },
     {
       id: "action",
       align: "center",
       disablePadding: false,
-      label: "Actions",
+      label: "Hành động",
       fontSize: "15px",
       paddingLeft: "25px",
     },

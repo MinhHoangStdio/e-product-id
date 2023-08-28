@@ -15,18 +15,13 @@ import {
 import OrderTableHead from "../../components/table/OrderTableHead";
 
 // icon
-import CancelIcon from "@mui/icons-material/Cancel";
 import InfoIcon from "@mui/icons-material/Info";
 
 // empty
 import Empty from "../../components/table/Empty";
 import { HeadCell } from "../../types/table";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { modalActions } from "../../store/modal/modalSlice";
-import { ParamsModalConfirm } from "../../types/modal";
 import { checkAllCondition, handleCheckAll } from "../../utils/table";
-import { User } from "../../types/user";
-import { userActions } from "../../store/user/userSlice";
 import history from "../../routes/history";
 import { Organization } from "../../types/organizations";
 
@@ -94,14 +89,14 @@ export default function OrganizationTable() {
       id: "organizationName",
       align: "left",
       disablePadding: false,
-      label: "Organization Name",
+      label: "Tên tổ chức",
       fontSize: "15px",
     },
     {
       id: "action",
       align: "center",
       disablePadding: false,
-      label: "Actions",
+      label: "Hành động",
       fontSize: "15px",
     },
   ];

@@ -11,6 +11,7 @@ import {
   Stack,
   SortDirection,
   Checkbox,
+  Chip,
 } from "@mui/material";
 import OrderTableHead from "../../components/table/OrderTableHead";
 
@@ -89,28 +90,28 @@ export default function OrganizationTable() {
       id: "consignmentName",
       align: "left",
       disablePadding: false,
-      label: "Consignment Name",
+      label: "Tên lô hàng",
       fontSize: "15px",
     },
     {
       id: "amount",
       align: "left",
       disablePadding: false,
-      label: "Amount",
+      label: "Số lượng",
       fontSize: "15px",
     },
     {
       id: "status",
       align: "left",
       disablePadding: false,
-      label: "Status",
+      label: "Trạng thái",
       fontSize: "15px",
     },
     {
       id: "action",
       align: "center",
       disablePadding: false,
-      label: "Actions",
+      label: "Hành động",
       fontSize: "15px",
     },
   ];
@@ -167,7 +168,13 @@ export default function OrganizationTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row?.is_sold_out ? "Sold out" : "In stock"}
+            {row?.is_sold_out ? (
+              <Chip label="Hết hàng" color="error" />
+            ) : (
+              <Chip label="Còn hàng" color="success" />
+            )}
+
+            {/* {row?.is_sold_out ? "Hết hàng" : "Còn hàng"} */}
           </TableCell>
 
           <TableCell align="left" className="table-cell">

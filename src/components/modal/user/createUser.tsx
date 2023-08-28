@@ -37,16 +37,16 @@ const CreateUserModal = () => {
       yup.object().shape({
         name: yup
           .string()
-          .required("Please enter a name")
-          .min(4, "Name is greater than 4 characters."),
+          .required("Vui lòng nhập tên người dùng")
+          .min(4, "Tên người dùng phải có nhiều hơn 4 kí tự."),
         email: yup
           .string()
-          .required("Please enter a email")
-          .email("Invalid email"),
+          .required("Vui lòng nhập email")
+          .email("Email không hợp lệ."),
         password: yup
           .string()
-          .required("Please enter password")
-          .min(6, "Password is greater than 6 characters."),
+          .required("Vui lòng nhập mật khẩu")
+          .min(6, "Mật khẩu phải có nhiều hơn 6 kí tự."),
       })
     ),
   });
@@ -64,7 +64,7 @@ const CreateUserModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Create a new user" />
+      <Heading title="Tạo mới một người dùng." />
       <TextField
         id="email"
         label="Email"
@@ -75,7 +75,7 @@ const CreateUserModal = () => {
       />
       <TextField
         id="name"
-        label="Name"
+        label="Tên người dùng"
         inputProps={{ ...register("name") }}
         error={!!errors.name?.message}
         required
@@ -83,7 +83,7 @@ const CreateUserModal = () => {
       />
       <TextField
         id="password"
-        label="Password"
+        label="Mật khẩu"
         type={showPassword ? "text" : "password"}
         inputProps={{ ...register("password") }}
         error={!!errors.password?.message}
@@ -109,8 +109,8 @@ const CreateUserModal = () => {
     <BaseModal
       disabled={loadingCreateUser}
       isOpen={isOpenModal}
-      title="Create a new user"
-      actionLabel="Create"
+      title="Tạo mới một người dùng."
+      actionLabel="Tạo mới"
       onClose={onCloseModal}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

@@ -27,6 +27,7 @@ import { ParamsModalConfirm } from "../../types/modal";
 import { checkAllCondition, handleCheckAll } from "../../utils/table";
 import { User } from "../../types/user";
 import { userActions } from "../../store/user/userSlice";
+import history from "../../routes/history";
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
@@ -59,14 +60,14 @@ export default function UserTable() {
 
   const confirmDelete = (data: User) => {
     const params: ParamsModalConfirm = {
-      title: "Confirm",
+      title: "Xác nhận",
       content: (
         <span>
-          Do you want to delete a user <b>"{data.name}"</b>?
+          Bạn có chắc chắn muốn khóa người dùng này không <b>"{data.name}"</b>?
         </span>
       ),
       onAction: () => dispatch(userActions.removeUser(data.id)), // fix
-      buttonText: "Delete",
+      buttonText: "Khóa người dùng",
     };
     dispatch(modalActions.showModal(params));
   };
@@ -90,7 +91,7 @@ export default function UserTable() {
       id: "userName",
       align: "left",
       disablePadding: false,
-      label: "Name",
+      label: "Tên người dùng",
       fontSize: "15px",
     },
     {
@@ -104,7 +105,7 @@ export default function UserTable() {
       id: "action",
       align: "center",
       disablePadding: false,
-      label: "Actions",
+      label: "Hành động",
       fontSize: "15px",
     },
   ];
@@ -156,8 +157,8 @@ export default function UserTable() {
               <Stack direction="row" spacing={1} justifyContent="center">
                 <IconButton
                   aria-label="info"
-                  onClick={(e) => {
-                    // dispatch(categoryActions.selectedCategory(row));
+                  onClick={() => {
+                    history.push("/users/" + row.id);
                   }}
                   color="secondary"
                 >

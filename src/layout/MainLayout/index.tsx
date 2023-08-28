@@ -28,8 +28,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             : { paddingLeft: "80px", transition: "padding 0.3s ease" }
         }
       >
-        <Navbar />
-        <Box sx={{ px: 4, pb: 4, bgcolor: colors.background.main }}>
+        {/* <Navbar /> */}
+        <Box mt={4} sx={{ px: 4, pb: 4, bgcolor: colors.background.main }}>
           <Paper sx={{ minHeight: "85vh" }}>{children}</Paper>
         </Box>
         <CreateAndEditCategoryModal />
