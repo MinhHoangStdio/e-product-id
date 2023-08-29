@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography, Grid, Box, Button, Stack } from "@mui/material";
+import { Typography, Grid, Box, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { productActions } from "../../store/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
@@ -27,8 +27,8 @@ const ProductDetail = () => {
       title: "Xác nhận",
       content: (
         <span>
-          Do you want to {isApproved ? "approve" : "reject"} a product{" "}
-          <b>"{data.name}"</b>?
+          Bạn có chắc chắn muốn {isApproved ? "xác nhận" : "từ chối"} phê duyệt
+          sản phẩm ngày không <b>"{data.name}"</b>?
         </span>
       ),
       onAction: () =>
@@ -37,7 +37,7 @@ const ProductDetail = () => {
             ? productActions.approveProduct(payload)
             : productActions.rejectProduct(payload)
         ),
-      buttonText: isApproved ? "Approve" : "Reject",
+      buttonText: "Xác nhận",
     };
     dispatch(modalActions.showModal(params));
   };
@@ -72,9 +72,7 @@ const ProductDetail = () => {
                 marginBottom={"20px"}
               >
                 <Typography variant="h4" color={"red"}>
-                  {
-                    "Sản phẩm này đã gửi yêu cầu phê duyệt nhưng vẫn chưa được phê duyệt."
-                  }
+                  {"Sản phẩm này đang chờ phê duyệt."}
                 </Typography>
                 <div>
                   <Button
@@ -90,7 +88,7 @@ const ProductDetail = () => {
                       );
                     }}
                   >
-                    {"Chấp nhận"}
+                    {"Phê duyệt"}
                   </Button>
                   <Button
                     variant="outlined"
@@ -109,21 +107,17 @@ const ProductDetail = () => {
               </Box>
             )}
             <Typography variant="h2">{product.name}</Typography>
-            <Typography variant="h3">
-              {product.price.toLocaleString("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              })}
-            </Typography>
             <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
               <b>Tên sản phẩm:</b> {product.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
               <b>Tổ chức:</b> {product?.organization?.name}
             </Typography>
-            <Typography sx={{ fontSize: "16px" }}>
-              <b>Danh mục:</b> {product?.category.name}
-            </Typography>
+            {product?.category && (
+              <Typography sx={{ fontSize: "16px" }}>
+                <b>Danh mục:</b> {product?.category?.name}
+              </Typography>
+            )}
             <Typography sx={{ fontSize: "16px" }}>
               <b>Trạng thái phê duyệt:</b> {product.approval_status}
             </Typography>
@@ -131,12 +125,20 @@ const ProductDetail = () => {
               <b>Mô tả:</b> <br />
               {product?.description}
             </Typography>
+            {product?.payload &&
+              Object.entries(product.payload).map(
+                ([key, value]: [string, any]) => (
+                  <Typography sx={{ fontSize: "16px" }} key={key}>
+                    <b>{key}:</b> {value}
+                  </Typography>
+                )
+              )}
           </Box>
         </Grid>
       </Grid>
     )) || (
       <Typography variant="h2" paddingTop={"25px"} textAlign={"center"}>
-        Product not found.
+        Không tìm thấy sản phẩm
       </Typography>
     )
   );

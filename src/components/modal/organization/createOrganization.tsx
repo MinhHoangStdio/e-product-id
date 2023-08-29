@@ -85,7 +85,7 @@ const CreateOrganizationModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Tạo mới một tổ chức." />
+      <Heading title="Tạo mới một tổ chức" />
       <TextField
         id="name"
         label="Tên tổ chức"
@@ -141,7 +141,7 @@ const CreateOrganizationModal = () => {
   return (
     <BaseModal
       isOpen={isOpenModal}
-      title="Tạo mới một tổ chức."
+      title="Tạo mới một tổ chức"
       actionLabel="Tạo mới"
       onClose={onCloseModal}
       onSubmit={handleSubmit(onSubmit)}

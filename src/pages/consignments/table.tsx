@@ -169,12 +169,10 @@ export default function OrganizationTable() {
             }}
           >
             {row?.is_sold_out ? (
-              <Chip label="Hết hàng" color="error" />
+              <Chip label="Hết hàng" color="error" size="small" />
             ) : (
-              <Chip label="Còn hàng" color="success" />
+              <Chip label="Còn hàng" color="success" size="small" />
             )}
-
-            {/* {row?.is_sold_out ? "Hết hàng" : "Còn hàng"} */}
           </TableCell>
 
           <TableCell align="left" className="table-cell">

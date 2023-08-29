@@ -96,7 +96,7 @@ const Products = () => {
         </Box>
       </Box>
       <ProductsTable />
-      <Stack sx={{ pt: "20px" }}>
+      <Stack sx={{ py: "20px" }}>
         <Pagination
           count={pagination ? totalPagePagination(pagination) : 1}
           page={pagination?.page || 1}

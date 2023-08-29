@@ -19,7 +19,7 @@ function* handleGetListConsignments(action: Action) {
     yield put(consignmentActions.getListConsignmentsFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get list consignments",
+        text: "Không thể lấy danh sách lô hàng",
         type: "error",
       })
     );
@@ -39,7 +39,7 @@ function* handleGetConsignmentDetail(action: Action) {
     yield put(consignmentActions.getConsignmentDetailFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get detail consignment",
+        text: "Không thể lấy chi tiết lô hàng.",
         type: "error",
       })
     );
