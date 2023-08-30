@@ -25,6 +25,7 @@ import { productActions } from "../../store/product/productSlice";
 import { DetailProduct } from "../../types/products";
 import history from "../../routes/history";
 import { checkAllCondition, handleCheckAll } from "../../utils/table";
+import ProductStatus from "../../components/chip/ProductStatus";
 
 export default function ProductsTable() {
   const dispatch = useAppDispatch();
@@ -78,13 +79,6 @@ export default function ProductsTable() {
       fontSize: "15px",
     },
     {
-      id: "price",
-      align: "left",
-      disablePadding: false,
-      label: "Giá",
-      fontSize: "15px",
-    },
-    {
       id: "categoryName",
       align: "left",
       disablePadding: false,
@@ -100,7 +94,7 @@ export default function ProductsTable() {
     },
     {
       id: "approvalStatus",
-      align: "left",
+      align: "center",
       disablePadding: false,
       label: "Trạng thái phê duyệt",
       fontSize: "15px",
@@ -155,23 +149,7 @@ export default function ProductsTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row.price.toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })}
-          </TableCell>
-
-          <TableCell
-            align="left"
-            className="table-cell"
-            sx={{
-              minWidth: 200,
-              maxWidth: 200,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {row.category.name}
+            {row?.category?.name}
           </TableCell>
 
           <TableCell
@@ -188,7 +166,7 @@ export default function ProductsTable() {
           </TableCell>
 
           <TableCell
-            align="left"
+            align="center"
             className="table-cell"
             sx={{
               minWidth: 200,
@@ -197,7 +175,7 @@ export default function ProductsTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row.approval_status}
+            <ProductStatus status={row.approval_status} />
           </TableCell>
 
           <TableCell align="left" className="table-cell">

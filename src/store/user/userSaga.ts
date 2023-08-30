@@ -21,7 +21,7 @@ function* handleGetListUsers(action: Action) {
     yield put(userActions.getListUsersFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get list users",
+        text: "Không thể lấy danh sách người dùng",
         type: "error",
       })
     );
@@ -35,7 +35,7 @@ function* handleDeleteUser(action: Action) {
     // yield put(userActions.removeUserSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Remove user success",
+        text: "Xóa người dùng thành công",
         type: "success",
       })
     );
@@ -44,7 +44,7 @@ function* handleDeleteUser(action: Action) {
     yield put(userActions.removeUserFailed());
     yield put(
       alertActions.showAlert({
-        text: "Remove user failed",
+        text: "Xóa người dùng thất bại",
         type: "error",
       })
     );
@@ -86,7 +86,7 @@ function* handleGetValidUsers() {
     yield put(userActions.getValidUsersFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get valid users",
+        text: "Không thể lấy danh sách người dùng khả dụng",
         type: "error",
       })
     );
@@ -103,7 +103,7 @@ function* handleGetDetailUser(action: Action) {
     yield put(userActions.getDetailUserFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get detail user",
+        text: "Không thể lấy chi tiết người dùng",
         type: "error",
       })
     );

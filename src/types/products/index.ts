@@ -1,28 +1,27 @@
 import { Category } from "../categories";
+import { EApprovalStatus } from "../enums/product";
 import { Organization } from "../organizations";
 
 export interface Product {
   id: string | number;
   name: string;
-  price: number;
   description: string;
   payload?: object;
   images?: string[];
   category_id: number;
   organizer_id: number;
-  approval_status: string;
+  approval_status: EApprovalStatus;
 }
 
 export interface DetailProduct {
   id: string | number;
   name: string;
-  price: number;
   description: string;
   payload?: object;
   images?: string[];
   category_id: number;
-  approval_status: string;
-  category: Category;
+  approval_status: EApprovalStatus;
+  category?: Category;
   organizer_id: number;
   organization: Organization;
 }

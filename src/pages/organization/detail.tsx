@@ -18,12 +18,12 @@ const OrganizationDetail = () => {
 
   return organization ? (
     <Box p={4}>
-      <Typography variant="h2">Organization Detail</Typography>
+      <Typography variant="h2">Thông tin tổ chức</Typography>
       <Typography sx={{ fontSize: "16px", mt: 1 }}>
-        <b>Name:</b> {organization.name}
+        <b>Tên:</b> {organization.name}
       </Typography>
       <Typography sx={{ fontSize: "16px", mt: 1 }}>
-        <b>List members:</b>
+        <b>Danh sách thành viên:</b>
       </Typography>
       <MemberTable />
     </Box>

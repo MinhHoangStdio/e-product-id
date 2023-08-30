@@ -95,13 +95,13 @@ const Consignments = () => {
           </FormControl>
         </Box>
 
-        <CustomButton
+        {/* <CustomButton
           color="primary"
           label=" Tạo mới"
           onClick={() => {
             // dispatch(layoutActions.openModalOrganization());
           }}
-        />
+        /> */}
       </Box>
       <OrganizationTable />
       <Stack sx={{ py: "20px" }}>

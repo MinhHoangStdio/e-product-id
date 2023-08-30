@@ -21,7 +21,7 @@ function* handleGetListOrganizations(action: Action) {
     yield put(organizationActions.getListOrganizationsFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get list organizations",
+        text: "Không thể lấy danh sách tổ chức",
         type: "error",
       })
     );
@@ -35,7 +35,7 @@ function* handleDeleteOrganization(action: Action) {
     // yield put(organizationActions.removeUserSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Remove organization success",
+        text: "Xóa tổ chức thành công",
         type: "success",
       })
     );
@@ -44,7 +44,7 @@ function* handleDeleteOrganization(action: Action) {
     yield put(organizationActions.removeOrganizationFailed());
     yield put(
       alertActions.showAlert({
-        text: "Remove organization failed",
+        text: "Xóa tổ chức thất bại",
         type: "error",
       })
     );
@@ -94,7 +94,7 @@ function* handleGetDetailOrganization(action: Action) {
     yield put(organizationActions.getDetailOrganizationFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get detail organization",
+        text: "Không thể lấy chi tiết tổ chức",
         type: "error",
       })
     );

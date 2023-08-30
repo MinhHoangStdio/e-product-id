@@ -20,7 +20,7 @@ function* handleGetListProducts(action: Action) {
     yield put(productActions.getListProductsFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get list products",
+        text: "Không thể lấy danh sách sản phẩm",
         type: "error",
       })
     );
@@ -40,7 +40,7 @@ function* handleGetDetailProduct(action: Action) {
     yield put(productActions.getDetailProductFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot get detail product",
+        text: "Không thể lấy chi tiết sản phẩm",
         type: "error",
       })
     );
@@ -59,7 +59,7 @@ function* handleAproveProduct(action: Action) {
     yield put(productActions.approveProductSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Approve product success",
+        text: "Phê duyệt sản phẩm thành công",
         type: "success",
       })
     );
@@ -70,7 +70,7 @@ function* handleAproveProduct(action: Action) {
     yield put(productActions.approveProductFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot approve product",
+        text: "Phê duyệt sản phẩm thất bại",
         type: "error",
       })
     );
@@ -89,7 +89,7 @@ function* handleRejectProduct(action: Action) {
     yield put(productActions.approveProductSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Reject product success",
+        text: "Từ chối phê duyệt sản phẩm thành công",
         type: "success",
       })
     );
@@ -100,7 +100,7 @@ function* handleRejectProduct(action: Action) {
     yield put(productActions.rejectProductFailed());
     yield put(
       alertActions.showAlert({
-        text: "Cannot reject product",
+        text: "Từ chối phê duyệt sản phẩm thất bại",
         type: "error",
       })
     );

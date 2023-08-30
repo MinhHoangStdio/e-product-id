@@ -64,7 +64,7 @@ const CreateUserModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Tạo mới một người dùng." />
+      <Heading title="Tạo mới một người dùng" />
       <TextField
         id="email"
         label="Email"
@@ -109,7 +109,7 @@ const CreateUserModal = () => {
     <BaseModal
       disabled={loadingCreateUser}
       isOpen={isOpenModal}
-      title="Tạo mới một người dùng."
+      title="Tạo mới một người dùng"
       actionLabel="Tạo mới"
       onClose={onCloseModal}
       onSubmit={handleSubmit(onSubmit)}

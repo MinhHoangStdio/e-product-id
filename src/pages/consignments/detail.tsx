@@ -4,7 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { consignmentActions } from "../../store/consignment/consignmentSlice";
 import { convertDateMui } from "../../utils/convertDate";
-import CustomButton from "../../components/share/CustomButton";
 
 const ConsignmentDetail = () => {
   const { id } = useParams();
@@ -74,10 +73,18 @@ const ConsignmentDetail = () => {
             <b>Trạng thái:</b>{" "}
             {consignment?.is_sold_out ? "Hết hàng" : "Còn hàng"}
           </Typography>
+          {consignment?.payload &&
+            Object.entries(consignment.payload).map(
+              ([key, value]: [string, any]) => (
+                <Typography sx={{ fontSize: "16px", mt: 1 }} key={key}>
+                  <b>{key}:</b> {value}
+                </Typography>
+              )
+            )}
         </Box>
       )) || (
         <Typography variant="h2" paddingTop={"25px"} textAlign={"center"}>
-          Consignment not found.
+          Không tìm thấy lô hàng
         </Typography>
       )}
       {/* {product && (
@@ -100,12 +107,6 @@ const ConsignmentDetail = () => {
           <Grid item xs={8}>
             <Box>
               <Typography variant="h3">{product?.name}</Typography>
-              <Typography variant="h4">
-                {product?.price?.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })}
-              </Typography>
               <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
                 <b>Product name:</b> {product?.name}
               </Typography>
@@ -145,6 +146,14 @@ const ConsignmentDetail = () => {
               <Typography sx={{ fontSize: "16px", mt: 1 }}>
                 {chain.description}
               </Typography>
+              {chain?.payload &&
+                Object.entries(chain.payload).map(
+                  ([key, value]: [string, any]) => (
+                    <Typography sx={{ fontSize: "16px", mt: 1 }} key={key}>
+                      <b>{key}:</b> {value}
+                    </Typography>
+                  )
+                )}
 
               {(chain?.images?.length || "") && (
                 <Stack
