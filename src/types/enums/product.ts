@@ -1,5 +1,5 @@
 export enum EApprovalStatus {
-  Approve = "approve",
+  Approve = "approved",
   Reject = "reject",
   Pending = "pending",
   Requesting = "requesting",
