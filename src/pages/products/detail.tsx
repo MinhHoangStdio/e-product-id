@@ -8,6 +8,7 @@ import { DetailProduct } from "../../types/products";
 import { modalActions } from "../../store/modal/modalSlice";
 import ImageSlider from "../../components/ImageSlider";
 import { EApprovalRequest, EApprovalStatus } from "../../types/enums/product";
+import ProductStatus from "../../components/chip/ProductStatus";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -119,7 +120,8 @@ const ProductDetail = () => {
               </Typography>
             )}
             <Typography sx={{ fontSize: "16px" }}>
-              <b>Trạng thái phê duyệt:</b> {product.approval_status}
+              <b>Trạng thái phê duyệt:</b>{" "}
+              <ProductStatus status={product.approval_status} />
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
               <b>Mô tả:</b> <br />
