@@ -61,7 +61,7 @@ const Users = () => {
             alignItems: "flex-start",
           }}
         >
-          <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -93,7 +93,7 @@ const Users = () => {
             >
               <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
 
         <CustomButton

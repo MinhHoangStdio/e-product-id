@@ -5,7 +5,8 @@ import { categorySaga } from "./category/categorySaga";
 import { productSaga } from "./product/productSaga";
 import { userSaga } from "./user/userSaga";
 import { organizationSaga } from "./organization/organizationSaga";
-import { ConsignmentSaga } from "./consignment/consignmentSaga";
+import { consignmentSaga } from "./consignment/consignmentSaga";
+import { chainsSaga } from "./chains/chainSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
     productSaga(),
     userSaga(),
     organizationSaga(),
-    ConsignmentSaga(),
+    consignmentSaga(),
+    chainsSaga(),
   ]);
 }

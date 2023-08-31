@@ -10,6 +10,7 @@ import productReducer from "./product/productSlice";
 import userReducer from "./user/userSlice";
 import organizationReducer from "./organization/organizationSlice";
 import consignmentReducer from "./consignment/consignmentSlice";
+import chainsReducer from "./chains/chainsSlice";
 
 const reducers = combineReducers({
   alert: alertReducer,
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   user: userReducer,
   organization: organizationReducer,
   consignment: consignmentReducer,
+  chain: chainsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -59,6 +59,6 @@ function* watchConsignmentFlow() {
   ]);
 }
 
-export function* ConsignmentSaga() {
+export function* consignmentSaga() {
   yield fork(watchConsignmentFlow);
 }
