@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Pagination } from "../../../types/pagination";
 
 interface chainsState {
   loadingRemoveChains: boolean;
