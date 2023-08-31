@@ -164,7 +164,7 @@ export default function UserTable() {
                 >
                   <InfoIcon fontSize="medium" />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   sx={{ marginLeft: "0px" }}
                   aria-label="delete"
                   onClick={(e) => {
@@ -173,7 +173,7 @@ export default function UserTable() {
                   color="error"
                 >
                   <CancelIcon fontSize="medium" />
-                </IconButton>
+                </IconButton> */}
               </Stack>
             </Box>
           </TableCell>

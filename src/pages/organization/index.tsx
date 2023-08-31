@@ -61,7 +61,7 @@ const Organizations = () => {
             alignItems: "flex-start",
           }}
         >
-          <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -80,7 +80,7 @@ const Organizations = () => {
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
-              Lọai
+              Loại
             </InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -93,7 +93,7 @@ const Organizations = () => {
             >
               <MenuItem value="ALL_STATUS">Tất cả</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
 
         <CustomButton
