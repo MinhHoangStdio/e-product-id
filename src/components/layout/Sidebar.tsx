@@ -16,12 +16,21 @@ import userDefaultImg from "../../assets/user/user.png";
 import PeopleIcon from "@mui/icons-material/People";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 
-const Item = ({ title, to, icon, selected, setSelected, navigate }: any) => {
+const Item = ({
+  title,
+  to,
+  icon,
+  selected,
+  setSelected,
+  navigate,
+  enTitle,
+}: any) => {
   return (
     <MenuItem
-      active={selected.toLowerCase() === title.toLowerCase()}
+      // active={selected.toLowerCase() === enTitle.toLowerCase()}
+      active={selected.toLowerCase().includes(enTitle)}
       onClick={() => {
-        setSelected(title);
+        setSelected(enTitle);
         navigate(to);
       }}
       icon={icon}
@@ -50,7 +59,7 @@ const SidebarCustom = () => {
 
   useEffect(() => {
     setSelected(path);
-  }, []);
+  }, [path]);
 
   const handleLogout = async () => {
     dispatch(
@@ -109,7 +118,11 @@ const SidebarCustom = () => {
         <Menu>
           {/* LOGO AND MENU ICON */}
           <MenuItem
-            onClick={() => dispatch(layoutActions.toggleCollapseSidebar())}
+            onClick={() => {
+              isCollapseSidebar
+                ? dispatch(layoutActions.toggleCollapseSidebar())
+                : navigate("/categories");
+            }}
             icon={isCollapseSidebar ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "0 0 20px 0",
@@ -171,6 +184,7 @@ const SidebarCustom = () => {
             <Item
               navigate={navigate}
               title="Danh mục"
+              enTitle="categories"
               to="/categories"
               icon={<CategoryIcon />}
               selected={selected}
@@ -179,6 +193,7 @@ const SidebarCustom = () => {
             <Item
               navigate={navigate}
               title="Sản phẩm"
+              enTitle="products"
               to="/products"
               icon={<WysiwygIcon />}
               selected={selected}
@@ -187,6 +202,7 @@ const SidebarCustom = () => {
             <Item
               navigate={navigate}
               title="Người dùng"
+              enTitle="users"
               to="/users"
               icon={<PeopleIcon />}
               selected={selected}
@@ -195,6 +211,7 @@ const SidebarCustom = () => {
             <Item
               navigate={navigate}
               title="Tổ chức"
+              enTitle="organizations"
               to="/organizations"
               icon={<CorporateFareIcon />}
               selected={selected}
@@ -203,6 +220,7 @@ const SidebarCustom = () => {
             <Item
               navigate={navigate}
               title="Lô hàng"
+              enTitle="consignments"
               to="/consignments"
               icon={<ListAltIcon />}
               selected={selected}
