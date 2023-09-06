@@ -25,7 +25,7 @@ const handleLogout = () => {
   if (window.location.pathname !== "/login") {
     localStorage.removeItem("access_token");
     localStorage.removeItem("current_user");
-    history.replace("/login");
+    window.location.href = "/login";
   }
 };
 
