@@ -11,26 +11,35 @@ import {
 } from "@mui/material";
 import CategoriesTable from "./table";
 import { SearchOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { categoryActions } from "../../store/category/categorySlice";
 import { totalPagePagination } from "../../utils/pagination";
 import CustomButton from "../../components/share/CustomButton";
 import { EPagination } from "../../types/enums/pagination";
+import { debounceSearch } from "../../utils/debounceSearch";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const [params, setParams] = useState({ limit: EPagination.Limit, page: 1 });
+  const [params, setParams] = useState({
+    limit: EPagination.Limit,
+    page: 1,
+    name: "",
+  });
+  const debounceSearchListCategories = useCallback(debounceSearch, []);
+
   const { pagination, loadingListCategories } = useAppSelector(
     (state) => state.category
   );
 
   const handleSearch = (value: string) => {
     setSearch(value);
+    debounceSearchListCategories(value.trim(), setParams);
   };
+
   const handleFilter = (value: string) => {
     setType(value);
   };
@@ -61,7 +70,7 @@ const Categories = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          <FormControl sx={{ width: { xs: "100%", md: 400 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -76,7 +85,7 @@ const Categories = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">

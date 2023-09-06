@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography, Box, Stack, Chip } from "@mui/material";
+import { Typography, Box, Stack, Chip, Grid, Divider } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { consignmentActions } from "../../store/consignment/consignmentSlice";
@@ -9,6 +9,9 @@ import { ParamsModalConfirm } from "../../types/modal";
 import { Chain } from "../../types/chain";
 import { modalActions } from "../../store/modal/modalSlice";
 import { chainsActions } from "../../store/chains/chainsSlice";
+import ImageSlider from "../../components/ImageSlider";
+import TextDetail from "../../components/TextDetail";
+import { toUpperFirstLetter } from "../../utils/string/toUpperFirstLetter";
 
 const ConsignmentDetail = () => {
   const { id } = useParams();
@@ -49,108 +52,168 @@ const ConsignmentDetail = () => {
 
   return (
     <>
-      {(consignment && (
-        <Box p={4}>
-          <Typography variant="h1">Thông tin lô hàng</Typography>
-          <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Tên lô hàng:</b> {consignment.name}
-          </Typography>
-          {consignment.product && (
-            <Link to={`/products/${consignment.product.id}`}>
-              <Typography
-                sx={{
-                  fontSize: "16px",
-                  mt: 1,
-                  "&:hover": { color: "#00B3D5" },
-                }}
-              >
-                <b>Tên sản phẩm:</b> {consignment.product?.name}
-              </Typography>
-            </Link>
-          )}
-          <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Số lượng:</b> {consignment.amount}
-          </Typography>
-          <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Mô tả:</b> {consignment?.description}
-          </Typography>
-          <Typography sx={{ fontSize: "16px", mt: 1 }}>
-            <b>Trạng thái:</b>{" "}
-            {consignment?.is_sold_out ? "Hết hàng" : "Còn hàng"}
-          </Typography>
-          {consignment?.payload &&
-            Object.entries(consignment.payload).map(
-              ([key, value]: [string, any]) => (
-                <Typography sx={{ fontSize: "16px", mt: 1 }} key={key}>
-                  <b>{key}:</b> {value}
+      {consignment ? (
+        consignment?.name ? (
+          <>
+            <Grid sx={{ width: "100%" }} p={2} container columnSpacing={4}>
+              <Grid item xs={12} mb={2}>
+                <Typography variant="h3" sx={{ fontWeight: 500 }}>
+                  Thông tin lô hàng
                 </Typography>
-              )
-            )}
-        </Box>
-      )) || (
+              </Grid>
+              <Grid item xs={6}>
+                <ImageSlider
+                  imagesUrl={[]}
+                  urlSelected={urlSelected}
+                  setSelected={setUrlSelected}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Box>
+                  <Stack direction="row" alignItems="center" spacing={3}>
+                    <Typography variant="h3" sx={{ fontWeight: 600 }}>
+                      {consignment.name}
+                    </Typography>
+                  </Stack>
+                  <Stack spacing={2} sx={{ mt: 3 }}>
+                    <TextDetail
+                      label="Mô tả lô hàng"
+                      value={consignment?.description}
+                    />
+                    <Divider />
+                    <TextDetail
+                      label="Trạng thái lô hàng"
+                      value={consignment?.is_sold_out ? "Hết hàng" : "Còn hàng"}
+                    />
+                    <Divider />
+                    <Stack spacing={1}>
+                      <Typography
+                        variant="h4"
+                        sx={{ fontWeight: 500, color: "#4b4b4b" }}
+                      >
+                        Chi tiết
+                      </Typography>
+                      <Typography variant="h6" sx={{ color: "#767676" }}>
+                        {consignment.product ? (
+                          <Link to={`/products/${consignment.product.id}`}>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                color: "#767676",
+                                mt: 1,
+                                "&:hover": { color: "#00B3D5" },
+                              }}
+                            >
+                              <b>Sản phẩm:</b> {consignment.product?.name}
+                            </Typography>
+                          </Link>
+                        ) : (
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              color: "#767676",
+                              mt: 1,
+                            }}
+                          >
+                            <b>Sản phẩm:</b> Chưa xác định
+                          </Typography>
+                        )}
+                      </Typography>
+                      <Typography variant="h6" sx={{ color: "#767676" }}>
+                        <b>Số lượng:</b> {consignment.amount}
+                      </Typography>
+                      {consignment?.payload ? (
+                        Object.keys(consignment?.payload).length ? (
+                          Object.keys(consignment?.payload).map((key, i) => (
+                            <Typography variant="h6" sx={{ color: "#767676" }}>
+                              <b>{toUpperFirstLetter(key)}</b>:{" "}
+                              {consignment?.payload[key]}
+                            </Typography>
+                          ))
+                        ) : (
+                          <></>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </Stack>
+                  </Stack>
+                </Box>
+              </Grid>
+              <Grid sx={{ mt: 4 }} item xs={12}>
+                <Divider />
+              </Grid>
+              <Grid sx={{ mt: 4 }} item xs={12}>
+                <Stack direction="row" spacing={3} alignItems="center">
+                  {" "}
+                  <Typography variant="h4" sx={{ fontWeight: 500 }}>
+                    Danh sách công đoạn
+                  </Typography>
+                </Stack>
+                {chains?.length ? (
+                  chains?.map((chain, index) => (
+                    <Box pb={2} key={index} pt={2}>
+                      <Stack mt={1} direction="row" gap={1} alignItems="center">
+                        <Typography variant="h5" sx={{ color: "#4b4b4b" }}>
+                          <b>
+                            {index + 1 + ". "} {chain.name}
+                          </b>
+                        </Typography>
+                        {chain?.date_start && (
+                          <Chip
+                            size="small"
+                            label={convertDateMui(chain?.date_start)}
+                          />
+                        )}
+                        <CustomButton
+                          label="Delete"
+                          color="error"
+                          onClick={() => confirmDelete(chain)}
+                        />
+                      </Stack>
+                      <Typography variant="h6" sx={{ mt: 1, color: "#767676" }}>
+                        {chain.description}
+                      </Typography>
+
+                      {(chain?.images?.length || "") && (
+                        <Stack
+                          direction="row"
+                          justifyContent="flex-start"
+                          gap={1}
+                          alignItems="center"
+                          mt={2}
+                          flexWrap={"wrap"}
+                        >
+                          {chain.images?.map((image, index) => (
+                            <img
+                              src={image}
+                              alt="Product image"
+                              style={{
+                                height: 300,
+                                objectFit: "cover",
+                              }}
+                              key={index}
+                            />
+                          ))}
+                        </Stack>
+                      )}
+                    </Box>
+                  ))
+                ) : (
+                  <Typography variant="h6" pt={1} sx={{ color: "#767676" }}>
+                    Chưa có công đoạn nào
+                  </Typography>
+                )}
+              </Grid>
+            </Grid>
+          </>
+        ) : (
+          <></>
+        )
+      ) : (
         <Typography variant="h2" paddingTop={"25px"} textAlign={"center"}>
           Không tìm thấy lô hàng
         </Typography>
-      )}
-
-      {(chains?.length || "") && (
-        <>
-          <Typography variant="h2" pl={4}>
-            Danh sách công đoạn
-          </Typography>
-          {chains?.map((chain, index) => (
-            <Box p={4} key={index} pt={0}>
-              <Stack mt={1} direction="row" gap={1} alignItems="center">
-                <Typography sx={{ fontSize: "18px" }}>
-                  <b>
-                    {index + 1 + ". "} {chain.name}
-                  </b>
-                </Typography>
-                {chain?.date_start && (
-                  <Chip label={convertDateMui(chain?.date_start)} />
-                )}
-                <CustomButton
-                  label="Delete"
-                  color="error"
-                  onClick={() => confirmDelete(chain)}
-                />
-              </Stack>
-              <Typography sx={{ fontSize: "16px", mt: 1 }}>
-                {chain.description}
-              </Typography>
-              {chain?.payload &&
-                Object.entries(chain.payload).map(
-                  ([key, value]: [string, any]) => (
-                    <Typography sx={{ fontSize: "16px", mt: 1 }} key={key}>
-                      <b>{key}:</b> {value}
-                    </Typography>
-                  )
-                )}
-
-              {(chain?.images?.length || "") && (
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  gap={1}
-                  alignItems="center"
-                  mt={2}
-                >
-                  {chain.images?.map((image, index) => (
-                    <img
-                      src={image}
-                      alt="Ảnh công đoạn"
-                      style={{
-                        height: 300,
-                        objectFit: "cover",
-                      }}
-                      key={index}
-                    />
-                  ))}
-                </Stack>
-              )}
-            </Box>
-          ))}
-        </>
       )}
     </>
   );

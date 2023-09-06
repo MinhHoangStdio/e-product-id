@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography, Grid, Box, Button } from "@mui/material";
+import { Typography, Grid, Box, Button, Stack, Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { productActions } from "../../store/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
@@ -9,6 +9,8 @@ import { modalActions } from "../../store/modal/modalSlice";
 import ImageSlider from "../../components/ImageSlider";
 import { EApprovalRequest, EApprovalStatus } from "../../types/enums/product";
 import ProductStatus from "../../components/chip/ProductStatus";
+import TextDetail from "../../components/TextDetail";
+import { toUpperFirstLetter } from "../../utils/string/toUpperFirstLetter";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -56,14 +58,14 @@ const ProductDetail = () => {
   return (
     (product && (
       <Grid sx={{ width: "100%" }} p={4} container columnSpacing={4}>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <ImageSlider
             imagesUrl={product?.images || []}
             urlSelected={urlSelected}
             setSelected={setUrlSelected}
           />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Box>
             {product.approval_status == EApprovalStatus.Requesting && (
               <Box
@@ -107,7 +109,7 @@ const ProductDetail = () => {
                 </div>
               </Box>
             )}
-            <Typography variant="h2">{product.name}</Typography>
+            {/* <Typography variant="h2">{product.name}</Typography>
             <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
               <b>Tên sản phẩm:</b> {product.name}
             </Typography>
@@ -134,7 +136,59 @@ const ProductDetail = () => {
                     <b>{key}:</b> {value}
                   </Typography>
                 )
+              )} */}
+            <Stack spacing={2} sx={{ mt: 3 }}>
+              <Typography variant="h3" sx={{ fontWeight: 600 }}>
+                {product.name}
+              </Typography>
+              <TextDetail label="Tổ chức" value={product?.organization?.name} />
+              {product?.category && (
+                <TextDetail label="Danh mục" value={product?.category?.name} />
               )}
+
+              <TextDetail label="Mô tả sản phẩm" value={product?.description} />
+              <Divider />
+              <Stack spacing={1}>
+                <Stack spacing={1}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 500, color: "#4b4b4b" }}
+                  >
+                    Trạng thái sản phẩm
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: "#767676" }}>
+                    <ProductStatus status={product.approval_status} />
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Divider />
+              <Stack spacing={1}>
+                <Typography
+                  variant="h4"
+                  sx={{ fontWeight: 500, color: "#4b4b4b" }}
+                >
+                  Chi tiết
+                </Typography>
+                <Typography variant="h6" sx={{ color: "#767676" }}>
+                  <b>Danh mục:</b>{" "}
+                  {product?.category?.name
+                    ? product?.category?.name
+                    : "Chưa xác định"}
+                </Typography>
+                {product?.payload &&
+                  Object.entries(product.payload).map(
+                    ([key, value]: [string, any]) => (
+                      <Typography
+                        key={key}
+                        variant="h6"
+                        sx={{ color: "#767676" }}
+                      >
+                        <b>{`${toUpperFirstLetter(key)}: `}:</b> {value}
+                      </Typography>
+                    )
+                  )}
+              </Stack>
+            </Stack>
           </Box>
         </Grid>
       </Grid>

@@ -11,18 +11,22 @@ import {
 } from "@mui/material";
 import ProductsTable from "./table";
 import { SearchOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { productActions } from "../../store/product/productSlice";
 import { totalPagePagination } from "../../utils/pagination";
 import { EPagination } from "../../types/enums/pagination";
+import { debounceSearch } from "../../utils/debounceSearch";
 
 const Products = () => {
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
+  const debounceSearchListProducts = useCallback(debounceSearch, []);
+
   const handleSearch = (value: string) => {
     setSearch(value);
+    debounceSearchListProducts(value.trim(), setParams);
   };
   const handleFilter = (value: string) => {
     setType(value);
@@ -60,7 +64,7 @@ const Products = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          <FormControl sx={{ width: { xs: "100%", md: 400 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -75,7 +79,7 @@ const Products = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
