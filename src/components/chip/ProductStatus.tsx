@@ -30,7 +30,7 @@ const statusShow: ProductStatus = {
 const ProductStatus = ({ status }: { status: EApprovalStatus }) => {
   return (
     <Chip
-      sx={{ color: "white", width: "87px", textAlign: "center" }}
+      sx={{ color: "white", width: "89px", textAlign: "center" }}
       label={statusShow[status].label}
       color={statusShow[status].color}
       size="small"

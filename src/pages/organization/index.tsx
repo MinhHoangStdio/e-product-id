@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { totalPagePagination } from "../../utils/pagination";
@@ -18,6 +18,7 @@ import CustomButton from "../../components/share/CustomButton";
 import { EPagination } from "../../types/enums/pagination";
 import OrganizationTable from "./table";
 import { organizationActions } from "../../store/organization/organizationSlice";
+import { debounceSearch } from "../../utils/debounceSearch";
 
 const Organizations = () => {
   const dispatch = useAppDispatch();
@@ -27,9 +28,11 @@ const Organizations = () => {
   const { pagination, loadingListOrganizations } = useAppSelector(
     (state) => state.organization
   );
+  const debounceSearchListOrganizers = useCallback(debounceSearch, []);
 
   const handleSearch = (value: string) => {
     setSearch(value);
+    debounceSearchListOrganizers(value.trim(), setParams);
   };
   const handleFilter = (value: string) => {
     setType(value);
@@ -61,7 +64,7 @@ const Organizations = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          <FormControl sx={{ width: { xs: "100%", md: 400 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -76,7 +79,7 @@ const Organizations = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">

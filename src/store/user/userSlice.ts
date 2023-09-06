@@ -7,7 +7,8 @@ interface userState {
   allListUsers: User[];
   pagination: Pagination | null;
   loadingListUsers: boolean;
-  loadingRemoveUser: boolean;
+  loadingBlockUser: boolean;
+  loadingUnblockUser: boolean;
   loadingCreateUser: boolean;
   loadingValidUsers: boolean;
   listValidUsers: User[];
@@ -20,7 +21,8 @@ const initialState: userState = {
   allListUsers: [],
   pagination: null,
   loadingListUsers: false,
-  loadingRemoveUser: false,
+  loadingBlockUser: false,
+  loadingUnblockUser: false,
   loadingCreateUser: false,
   loadingValidUsers: false,
   listValidUsers: [],
@@ -44,14 +46,24 @@ const userSlice = createSlice({
       state.loadingListUsers = false;
     },
 
-    removeUser(state, action) {
-      state.loadingRemoveUser = true;
+    blockUser(state, action) {
+      state.loadingBlockUser = true;
     },
-    removeUserSuccess(state) {
-      state.loadingRemoveUser = false;
+    blockUserSuccess(state) {
+      state.loadingBlockUser = false;
     },
-    removeUserFailed(state) {
-      state.loadingRemoveUser = false;
+    blockUserFailed(state) {
+      state.loadingBlockUser = false;
+    },
+
+    unblockUser(state, action) {
+      state.loadingUnblockUser = true;
+    },
+    unblockUserSuccess(state) {
+      state.loadingUnblockUser = false;
+    },
+    unblockUserFailed(state) {
+      state.loadingUnblockUser = false;
     },
 
     createUser(state, action) {

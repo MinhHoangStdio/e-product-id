@@ -17,6 +17,10 @@ const userApi = {
     const url = `/users/${id}`;
     return axiosClient.get(url);
   },
+  blockUser(id: any) {
+    const url = `/users/${id}/block-user`;
+    return axiosClient.post(url);
+  },
 };
 
 export default userApi;

@@ -15,8 +15,9 @@ import {
 import OrderTableHead from "../../components/table/OrderTableHead";
 
 // icon
-import CancelIcon from "@mui/icons-material/Cancel";
 import InfoIcon from "@mui/icons-material/Info";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 // empty
 import Empty from "../../components/table/Empty";
@@ -58,16 +59,20 @@ export default function UserTable() {
   const [order] = useState("asc");
   const [orderBy] = useState("trackingNo");
 
-  const confirmDelete = (data: User) => {
+  const confirmBlockOrUnblock = (data: User) => {
     const params: ParamsModalConfirm = {
       title: "Xác nhận",
       content: (
         <span>
-          Bạn có chắc chắn muốn khóa người dùng này không <b>"{data.name}"</b>?
+          Bạn có chắc chắn muốn {data.is_active ? "chặn" : "bỏ chặn"} người dùng
+          <b> "{data.name}"</b> không?
         </span>
       ),
-      onAction: () => dispatch(userActions.removeUser(data.id)), // fix
-      buttonText: "Khóa người dùng",
+      onAction: () =>
+        data.is_active
+          ? dispatch(userActions.blockUser(data.id))
+          : dispatch(userActions.unblockUser(data.id)),
+      buttonText: "Đồng ý",
     };
     dispatch(modalActions.showModal(params));
   };
@@ -164,16 +169,29 @@ export default function UserTable() {
                 >
                   <InfoIcon fontSize="medium" />
                 </IconButton>
-                {/* <IconButton
-                  sx={{ marginLeft: "0px" }}
-                  aria-label="delete"
-                  onClick={(e) => {
-                    dispatch(() => confirmDelete(row));
-                  }}
-                  color="error"
-                >
-                  <CancelIcon fontSize="medium" />
-                </IconButton> */}
+                {row.is_active ? (
+                  <IconButton
+                    sx={{ marginLeft: "0px" }}
+                    aria-label="block"
+                    onClick={(e) => {
+                      dispatch(() => confirmBlockOrUnblock(row));
+                    }}
+                    color="error"
+                  >
+                    <RemoveCircleOutlineIcon fontSize="medium" />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    sx={{ marginLeft: "0px" }}
+                    aria-label="unblock"
+                    onClick={(e) => {
+                      dispatch(() => confirmBlockOrUnblock(row));
+                    }}
+                    color="success"
+                  >
+                    <CheckCircleOutlineIcon fontSize="medium" />
+                  </IconButton>
+                )}
               </Stack>
             </Box>
           </TableCell>

@@ -28,23 +28,46 @@ function* handleGetListUsers(action: Action) {
   }
 }
 
-function* handleDeleteUser(action: Action) {
+function* handleBlockUser(action: Action) {
   try {
     const id = action.payload;
-    // const response: { data: any } = yield call(userApi.removeUser, id);
-    // yield put(userActions.removeUserSuccess());
+    const response: { data: any } = yield call(userApi.blockUser, id);
+    yield put(userActions.blockUserSuccess());
     yield put(
       alertActions.showAlert({
-        text: "Xóa người dùng thành công",
+        text: "Chặn người dùng thành công",
         type: "success",
       })
     );
-    yield put(userActions.getListUsers({}));
+    yield put(userActions.getListUsers({ limit: EPagination.Limit }));
   } catch (error) {
-    yield put(userActions.removeUserFailed());
+    yield put(userActions.blockUserFailed());
     yield put(
       alertActions.showAlert({
-        text: "Xóa người dùng thất bại",
+        text: "Chặn người dùng thất bại",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleUnblockUser(action: Action) {
+  try {
+    const id = action.payload;
+    const response: { data: any } = yield call(userApi.blockUser, id);
+    yield put(userActions.unblockUserSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Bỏ chặn người dùng thành công",
+        type: "success",
+      })
+    );
+    yield put(userActions.getListUsers({ limit: EPagination.Limit }));
+  } catch (error) {
+    yield put(userActions.unblockUserFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Bỏ chặn người dùng thất bại",
         type: "error",
       })
     );
@@ -113,7 +136,8 @@ function* handleGetDetailUser(action: Action) {
 function* watchUserFlow() {
   yield all([
     takeLatest(userActions.getListUsers.type, handleGetListUsers),
-    takeLatest(userActions.removeUser.type, handleDeleteUser),
+    takeLatest(userActions.blockUser.type, handleBlockUser),
+    takeLatest(userActions.unblockUser.type, handleUnblockUser),
     takeLatest(userActions.createUser.type, handleCreateUser),
     takeLatest(userActions.getValidUsers.type, handleGetValidUsers),
     takeLatest(userActions.getDetailUser.type, handleGetDetailUser),

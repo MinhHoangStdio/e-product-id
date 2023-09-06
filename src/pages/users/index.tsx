@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { totalPagePagination } from "../../utils/pagination";
@@ -18,6 +18,7 @@ import CustomButton from "../../components/share/CustomButton";
 import { userActions } from "../../store/user/userSlice";
 import UserTable from "./table";
 import { EPagination } from "../../types/enums/pagination";
+import { debounceSearch } from "../../utils/debounceSearch";
 
 const Users = () => {
   const dispatch = useAppDispatch();
@@ -27,9 +28,11 @@ const Users = () => {
   const { pagination, loadingListUsers } = useAppSelector(
     (state) => state.user
   );
+  const debounceSearchListUsers = useCallback(debounceSearch, []);
 
   const handleSearch = (value: string) => {
     setSearch(value);
+    debounceSearchListUsers(value.trim(), setParams);
   };
   const handleFilter = (value: string) => {
     setType(value);
@@ -61,7 +64,7 @@ const Users = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          <FormControl sx={{ width: { xs: "100%", md: 400 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -76,7 +79,7 @@ const Users = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">

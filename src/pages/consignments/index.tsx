@@ -10,13 +10,14 @@ import {
   Stack,
 } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { totalPagePagination } from "../../utils/pagination";
 import CustomButton from "../../components/share/CustomButton";
 import { EPagination } from "../../types/enums/pagination";
 import OrganizationTable from "./table";
 import { consignmentActions } from "../../store/consignment/consignmentSlice";
+import { debounceSearch } from "../../utils/debounceSearch";
 
 const Consignments = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +27,11 @@ const Consignments = () => {
   const { pagination, loadingListConsignments } = useAppSelector(
     (state) => state.consignment
   );
+  const debounceSearchListConsignments = useCallback(debounceSearch, []);
 
   const handleSearch = (value: string) => {
     setSearch(value);
+    debounceSearchListConsignments(value.trim(), setParams);
   };
   const handleFilter = (value: string) => {
     setType(value);
@@ -60,7 +63,7 @@ const Consignments = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* <FormControl sx={{ width: { xs: "100%", md: 200 } }}>
+          <FormControl sx={{ width: { xs: "100%", md: 400 } }}>
             <OutlinedInput
               color="secondary"
               id="header-search"
@@ -75,7 +78,7 @@ const Consignments = () => {
               onChange={(e) => handleSearch(e.target.value)}
             />
           </FormControl>
-          <FormControl
+          {/* <FormControl
             sx={{ width: { xs: "100%", md: 150 }, marginLeft: "15px" }}
           >
             <InputLabel color="secondary" id="demo-simple-select-label">
