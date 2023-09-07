@@ -24,6 +24,29 @@ function* handleLogin(action: Action) {
   }
 }
 
+function* handleChangePwd(action: Action) {
+  try {
+    const { params, onReset } = action.payload;
+    yield call(authApi.changepwd, params);
+    yield put(authActions.changePwdSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Đổi mật khẩu thành công.",
+        type: "success",
+      })
+    );
+    onReset?.();
+  } catch (error: any) {
+    yield put(authActions.changePwdFailed());
+    yield put(
+      alertActions.showAlert({
+        text: `${error?.response?.data?.message}`,
+        type: "error",
+      })
+    );
+  }
+}
+
 function* handleLogout(action: Action) {
   yield delay(500);
   localStorage.removeItem("access_token");
@@ -36,6 +59,7 @@ function* watchLoginFlow() {
   yield all([
     takeLatest(authActions.login.type, handleLogin),
     takeLatest(authActions.logout.type, handleLogout),
+    takeLatest(authActions.changePwd.type, handleChangePwd),
   ]);
 }
 

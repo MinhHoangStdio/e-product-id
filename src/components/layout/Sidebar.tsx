@@ -15,6 +15,7 @@ import { colorToken } from "../../theme/colorToken";
 import userDefaultImg from "../../assets/user/user.png";
 import PeopleIcon from "@mui/icons-material/People";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
+import LockIcon from "@mui/icons-material/Lock";
 
 const Item = ({
   title,
@@ -232,6 +233,16 @@ const SidebarCustom = () => {
                 Cài đặt
               </Typography>
             )}
+
+            <Item
+              navigate={navigate}
+              title="Đổi mật khẩu"
+              enTitle="change-password"
+              to="/change-password"
+              icon={<LockIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <MenuItem
               style={{ marginTop: "8px" }}
               onClick={handleLogout}
