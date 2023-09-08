@@ -5,9 +5,12 @@ import MinimalLayout from "../layout/MinimalLayout";
 
 const PublicRoutes = () => {
   const AuthLogin = Loadable(lazy(() => import("../pages/auth")));
+  const ForgotPwd = Loadable(lazy(() => import("../pages/auth/forgotPwd")));
+
   return (
     <MinimalLayout>
       <Routes>
+        <Route path="/forgot-password" element={<ForgotPwd />} />
         <Route path="/login" element={<AuthLogin />} />
         <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
