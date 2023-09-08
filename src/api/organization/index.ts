@@ -2,7 +2,7 @@ import axiosClient from "../axiosClient";
 
 const organizationApi = {
   getListOrganizations(params: any) {
-    const url = "/organizations";
+    const url = "/organizations/";
     return axiosClient.get(url, { params });
   },
   getDetailOrganization(id: any) {
