@@ -27,7 +27,6 @@ const Categories = () => {
   const [params, setParams] = useState({
     limit: EPagination.Limit,
     page: 1,
-    name: "",
   });
   const debounceSearchListCategories = useCallback(debounceSearch, []);
 
