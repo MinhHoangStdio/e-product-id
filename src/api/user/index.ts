@@ -2,7 +2,7 @@ import axiosClient from "../axiosClient";
 
 const userApi = {
   getListUsers(params: any) {
-    const url = "/users";
+    const url = "/users/";
     return axiosClient.get(url, { params });
   },
   createUser(params: any) {

@@ -2,7 +2,7 @@ import axiosClient from "../axiosClient";
 
 const categoryApi = {
   getListCategories(params: any) {
-    const url = "/categories";
+    const url = "/categories/";
     return axiosClient.get(url, { params });
   },
   createCategory(params: any) {
