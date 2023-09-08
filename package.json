@@ -17,6 +17,7 @@
     "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.12.3",
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/lodash": "^4.14.198",
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "history": "^5.3.0",
