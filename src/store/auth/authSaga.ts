@@ -47,6 +47,63 @@ function* handleChangePwd(action: Action) {
   }
 }
 
+function* handleSendEmail(action: Action) {
+  try {
+    const { params, onNext } = action.payload;
+    const response: { data: any } = yield call(authApi.forgotPwd, params);
+    yield put(authActions.sendEmailSuccess(response.data.token));
+    onNext();
+  } catch (error) {
+    yield put(authActions.sendEmailFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Lỗi!",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleVerifyOtp(action: Action) {
+  try {
+    const { params, onNext } = action.payload;
+    const response: { data: any } = yield call(authApi.verifyForgotPwd, params);
+    yield put(authActions.verifyOtpSuccess(response.data.token));
+    onNext();
+  } catch (error: any) {
+    yield put(authActions.verifyOtpFailed());
+    yield put(
+      alertActions.showAlert({
+        text: `${error?.response?.data?.message}`,
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleResetPwd(action: Action) {
+  try {
+    const { params, onNext } = action.payload;
+    const response: { data: any } = yield call(authApi.resetPwd, params);
+    yield put(authActions.resetPwdSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Đặt mật khẩu lại thành công",
+        type: "success",
+      })
+    );
+    onNext();
+  } catch (error: any) {
+    yield put(authActions.resetPwdFailed());
+    yield put(
+      alertActions.showAlert({
+        text: `${error?.response?.data?.message}`,
+        type: "error",
+      })
+    );
+  }
+}
+
 function* handleLogout(action: Action) {
   yield delay(500);
   localStorage.removeItem("access_token");
@@ -60,6 +117,10 @@ function* watchLoginFlow() {
     takeLatest(authActions.login.type, handleLogin),
     takeLatest(authActions.logout.type, handleLogout),
     takeLatest(authActions.changePwd.type, handleChangePwd),
+    takeLatest(authActions.sendEmail.type, handleSendEmail),
+    takeLatest(authActions.verifyOtp.type, handleVerifyOtp),
+    takeLatest(authActions.resetPwd.type, handleResetPwd),
+    takeLatest(authActions.logout.type, handleLogout),
   ]);
 }
 

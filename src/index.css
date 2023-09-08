@@ -18,6 +18,12 @@ body,
   position: relative;
 }
 
+.react-code-input {
+  width: 100% !important;
+  margin: auto;
+  text-align: center !important;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

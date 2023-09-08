@@ -94,6 +94,18 @@ const Login = () => {
           }}
         />
         <CustomButton color="primary" type="submit" label="Đăng nhập" />
+        <p
+          onClick={() => {
+            navigate("/forgot-password");
+          }}
+          className="
+              text-neutral-800
+              cursor-pointer 
+              hover:underline
+            "
+        >
+          Quên mật khẩu?
+        </p>
       </Stack>
     </form>
   );
