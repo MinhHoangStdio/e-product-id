@@ -6,7 +6,7 @@ const categoryApi = {
     return axiosClient.get(url, { params });
   },
   createCategory(params: any) {
-    const url = "/categories";
+    const url = "/categories/";
     return axiosClient.post(url, params);
   },
   editCategory(id: any, params: any) {

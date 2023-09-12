@@ -10,7 +10,7 @@ const organizationApi = {
     return axiosClient.get(url);
   },
   createOrganization(params: any) {
-    const url = `/organizations`;
+    const url = `/organizations/`;
     return axiosClient.post(url, params);
   },
 };
