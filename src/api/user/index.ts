@@ -6,7 +6,7 @@ const userApi = {
     return axiosClient.get(url, { params });
   },
   createUser(params: any) {
-    const url = "/users";
+    const url = "/users/";
     return axiosClient.post(url, params);
   },
   getValidUsers() {
