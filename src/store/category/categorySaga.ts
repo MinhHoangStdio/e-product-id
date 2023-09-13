@@ -2,7 +2,7 @@ import { call, fork, put, takeLatest, all } from "redux-saga/effects";
 import { alertActions } from "../alert/alertSlice";
 import { Action } from "../../types/actions";
 import categoryApi from "../../api/category";
-import { Category } from "../../types/categories";
+import { Category, ParentCategory } from "../../types/categories";
 import { categoryActions } from "./categorySlice";
 import { layoutActions } from "../layout/layoutSlice";
 import { Pagination } from "../../types/pagination";
@@ -39,6 +39,25 @@ function* handleGetAllListCaregories(action: Action) {
     yield put(categoryActions.getAllListCategoriesSuccess(response.data));
   } catch (error) {
     yield put(categoryActions.getAllListCategoriesFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Không thể lấy danh sách danh mục.",
+        type: "error",
+      })
+    );
+  }
+}
+
+function* handleGetListParentCaregories(action: Action) {
+  try {
+    const params = { limit: 100 };
+    const response: { data: { data: ParentCategory[] } } = yield call(
+      categoryApi.getListParentCategories,
+      params
+    );
+    yield put(categoryActions.getListParentCategoriesSuccess(response.data));
+  } catch (error) {
+    yield put(categoryActions.getListParentCategoriesFailed());
     yield put(
       alertActions.showAlert({
         text: "Không thể lấy danh sách danh mục.",
@@ -136,6 +155,10 @@ function* handleSelectedCategory(action: Action) {
 function* watchCategoryFlow() {
   yield all([
     takeLatest(categoryActions.getListCategories.type, handleGetListCaregories),
+    takeLatest(
+      categoryActions.getListParentCategories.type,
+      handleGetListParentCaregories
+    ),
     takeLatest(
       categoryActions.getAllListCategories.type,
       handleGetAllListCaregories

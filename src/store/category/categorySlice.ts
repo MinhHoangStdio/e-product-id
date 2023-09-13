@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Category } from "../../types/categories";
+import { Category, ParentCategory } from "../../types/categories";
 import { Pagination } from "../../types/pagination";
 
 interface categoryState {
   listCategories: Category[];
   allListCategories: Category[];
+  listParentCategories: ParentCategory[];
   pagination: Pagination | null;
   loadingListCategories: boolean;
   loadingAllListCategories: boolean;
+  loadingGetListParentCategories: boolean;
   loadingCreateCategory: boolean;
   categorySelected: Category;
   idCategorySelected: any;
@@ -18,15 +20,13 @@ interface categoryState {
 const initialState: categoryState = {
   listCategories: [],
   allListCategories: [],
+  listParentCategories: [],
   pagination: null,
   loadingListCategories: false,
   loadingAllListCategories: false,
+  loadingGetListParentCategories: false,
   loadingCreateCategory: false,
-  categorySelected: {
-    name: "",
-    id: "",
-    parent_id: null,
-  },
+  categorySelected: {} as Category,
   idCategorySelected: null,
   loadingEditCategory: false,
   loadingRemoveCategory: false,
@@ -59,6 +59,17 @@ const categorySlice = createSlice({
       state.loadingAllListCategories = false;
     },
 
+    getListParentCategories(state) {
+      state.loadingGetListParentCategories = true;
+    },
+    getListParentCategoriesSuccess(state, action) {
+      state.listParentCategories = action.payload.data;
+      state.loadingGetListParentCategories = false;
+    },
+    getListParentCategoriesFailed(state) {
+      state.loadingGetListParentCategories = false;
+    },
+
     createCategory(state, action) {
       state.loadingCreateCategory = true;
     },
@@ -73,11 +84,7 @@ const categorySlice = createSlice({
       state.categorySelected = action.payload;
     },
     resetSelectedCategory(state) {
-      state.categorySelected = {
-        name: "",
-        id: "",
-        parent_id: null,
-      };
+      state.categorySelected = {} as Category;
     },
 
     selectedId(state, action) {

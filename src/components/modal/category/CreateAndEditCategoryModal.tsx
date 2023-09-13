@@ -27,8 +27,8 @@ const CreateAndEditCategoryModal = () => {
   const isOpenModal = useAppSelector(
     (state) => state.layout.isOpenModalCategory
   );
-  const listAllCategories = useAppSelector(
-    (state) => state.category.allListCategories
+  const listParentCategories = useAppSelector(
+    (state) => state.category.listParentCategories
   );
   const [parentIdLabel, setParentIdLabel] = useState<any>(null);
   const typeModal = categorySelected.name ? "edit" : "create";
@@ -65,7 +65,7 @@ const CreateAndEditCategoryModal = () => {
   }, [categorySelected, setValue]);
 
   useEffect(() => {
-    dispatch(categoryActions.getAllListCategories());
+    dispatch(categoryActions.getListParentCategories());
   }, []);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -130,7 +130,7 @@ const CreateAndEditCategoryModal = () => {
         }}
       >
         <MenuItem value={-1}>None</MenuItem>
-        {listAllCategories.map((cate) => (
+        {listParentCategories.map((cate) => (
           <MenuItem key={cate.id} value={cate.id}>
             {cate.name}
           </MenuItem>
