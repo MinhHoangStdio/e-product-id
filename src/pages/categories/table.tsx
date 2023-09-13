@@ -104,7 +104,7 @@ export default function CategoriesTable() {
     },
     {
       id: "product quantity",
-      align: "left",
+      align: "center",
       disablePadding: false,
       label: "Số lượng sản phẩm",
       fontSize: "15px",
@@ -158,11 +158,11 @@ export default function CategoriesTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row.parent_id}
+            {row?.parent_category?.name || "Không"}
           </TableCell>
 
           <TableCell
-            align="left"
+            align="center"
             className="table-cell"
             sx={{
               minWidth: 200,
@@ -171,7 +171,7 @@ export default function CategoriesTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row.parent_id}
+            {row.product_count}
           </TableCell>
 
           <TableCell align="left" className="table-cell">

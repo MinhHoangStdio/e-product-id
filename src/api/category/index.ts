@@ -5,6 +5,10 @@ const categoryApi = {
     const url = "/categories/";
     return axiosClient.get(url, { params });
   },
+  getListParentCategories(params: any) {
+    const url = "categories/get-parents";
+    return axiosClient.get(url, { params });
+  },
   createCategory(params: any) {
     const url = "/categories/";
     return axiosClient.post(url, params);
