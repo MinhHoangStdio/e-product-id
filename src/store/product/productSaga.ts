@@ -16,14 +16,16 @@ function* handleGetListProducts(action: Action) {
       data: { data: DetailProduct[]; pagination: Pagination };
     } = yield call(productApi.getListProducts, params);
     yield put(productActions.getListProductsSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(productActions.getListProductsFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách sản phẩm",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -36,14 +38,16 @@ function* handleGetDetailProduct(action: Action) {
     );
 
     yield put(productActions.getDetailProductSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(productActions.getDetailProductFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy chi tiết sản phẩm",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -66,14 +70,16 @@ function* handleAproveProduct(action: Action) {
 
     yield put(productActions.getDetailProduct(id));
     yield put(layoutActions.closeModalConfirm());
-  } catch (error) {
+  } catch (error: any) {
     yield put(productActions.approveProductFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Phê duyệt sản phẩm thất bại",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 

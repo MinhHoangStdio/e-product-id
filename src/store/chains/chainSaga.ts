@@ -17,14 +17,16 @@ function* handleDeleteChains(action: Action) {
         type: "success",
       })
     );
-  } catch (error) {
+  } catch (error: any) {
     yield put(chainsActions.removeChainsFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Xóa công đoạn thất bại",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 

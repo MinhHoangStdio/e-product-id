@@ -63,8 +63,10 @@ const CreateOrganizationModal = () => {
   });
 
   useEffect(() => {
-    dispatch(userActions.getValidUsers());
-  }, [dispatch]);
+    if (isOpenModal) {
+      dispatch(userActions.getValidUsers());
+    }
+  }, [dispatch, isOpenModal]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const members = formState.members as number[];

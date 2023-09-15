@@ -15,14 +15,16 @@ function* handleGetListConsignments(action: Action) {
       yield call(consignmentApi.getListConsignments, params);
 
     yield put(consignmentActions.getListConsignmentsSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(consignmentActions.getListConsignmentsFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách lô hàng",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -35,14 +37,16 @@ function* handleGetConsignmentDetail(action: Action) {
     );
 
     yield put(consignmentActions.getConsignmentDetailSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(consignmentActions.getConsignmentDetailFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy chi tiết lô hàng.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
