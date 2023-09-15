@@ -111,7 +111,7 @@ const CreateOrganizationModal = () => {
           );
         }}
       >
-        <MenuItem value={-1}>None</MenuItem>
+        <MenuItem value={-1}>Không</MenuItem>
         {userList.map((user: any) => (
           <MenuItem key={user.id} value={user.id}>
             {user.name}

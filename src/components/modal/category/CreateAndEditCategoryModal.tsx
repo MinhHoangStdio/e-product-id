@@ -76,6 +76,7 @@ const CreateAndEditCategoryModal = () => {
         params: data,
         onReset() {
           reset();
+          onCloseModal();
         },
       };
       dispatch(categoryActions.createCategory(payload));
