@@ -65,8 +65,10 @@ const CreateAndEditCategoryModal = () => {
   }, [categorySelected, setValue]);
 
   useEffect(() => {
-    dispatch(categoryActions.getListParentCategories());
-  }, []);
+    if (isOpenModal) {
+      dispatch(categoryActions.getListParentCategories());
+    }
+  }, [isOpenModal]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (typeModal == "create") {
@@ -129,7 +131,7 @@ const CreateAndEditCategoryModal = () => {
           }
         }}
       >
-        <MenuItem value={-1}>None</MenuItem>
+        <MenuItem value={-1}>Không</MenuItem>
         {listParentCategories.map((cate) => (
           <MenuItem key={cate.id} value={cate.id}>
             {cate.name}
