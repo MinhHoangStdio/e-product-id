@@ -133,11 +133,19 @@ const CreateAndEditCategoryModal = () => {
         }}
       >
         <MenuItem value={-1}>Không</MenuItem>
-        {listParentCategories.map((cate) => (
-          <MenuItem key={cate.id} value={cate.id}>
-            {cate.name}
-          </MenuItem>
-        ))}
+        {typeModal == "create"
+          ? listParentCategories.map((cate) => (
+              <MenuItem key={cate.id} value={cate.id}>
+                {cate.name}
+              </MenuItem>
+            ))
+          : listParentCategories
+              .filter((cate) => cate.id !== categorySelected.id)
+              .map((cate) => (
+                <MenuItem key={cate.id} value={cate.id}>
+                  {cate.name}
+                </MenuItem>
+              ))}
       </TextField>
     </div>
   );
