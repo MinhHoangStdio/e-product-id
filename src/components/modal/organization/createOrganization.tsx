@@ -22,7 +22,7 @@ const CreateOrganizationModal = () => {
   const isOpenModal = useAppSelector(
     (state) => state.layout.isOpenModalOrganization
   );
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [formState, setFormState] = useState({
     members: [],
   });
@@ -49,6 +49,7 @@ const CreateOrganizationModal = () => {
     handleSubmit,
     reset,
     setValue,
+    clearErrors,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: yupResolver(
@@ -70,8 +71,8 @@ const CreateOrganizationModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const members = formState.members as number[];
-    if (selectedUser && !members.includes(parseInt(selectedUser))) {
-      members.push(parseInt(selectedUser));
+    if (selectedUser && !members.includes(selectedUser)) {
+      members.push(selectedUser);
     }
     const payload = {
       name: data.name,
@@ -102,16 +103,19 @@ const CreateOrganizationModal = () => {
         id="selectedUser"
         label="Chủ sở hữu"
         value={selectedUser}
+        error={!!errors.selectedUser?.message}
+        helperText={errors.selectedUser?.message}
         InputLabelProps={{ shrink: !!selectedUser }}
         onChange={(e: any) => {
+          clearErrors("selectedUser");
           setSelectedUser(e.target.value);
+          setFormState({ members: [] });
           setValue(
             "selectedUser",
             e.target.value === -1 ? null : e.target.value
           );
         }}
       >
-        <MenuItem value={-1}>Không</MenuItem>
         {userList.map((user: any) => (
           <MenuItem key={user.id} value={user.id}>
             {user.name}
@@ -131,11 +135,13 @@ const CreateOrganizationModal = () => {
           onChange: handleFieldChange,
         }}
       >
-        {userList.map((user: User, key: any) => (
-          <MenuItem value={user.id} key={key}>
-            {user.name}
-          </MenuItem>
-        ))}
+        {userList
+          .filter((user) => user.id !== (selectedUser as number))
+          .map((user: User, key: any) => (
+            <MenuItem value={user.id} key={key}>
+              {user.name}
+            </MenuItem>
+          ))}
       </TextField>
     </div>
   );
