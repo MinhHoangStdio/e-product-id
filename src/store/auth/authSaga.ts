@@ -13,14 +13,16 @@ function* handleLogin(action: Action) {
     localStorage.setItem("current_user", JSON.stringify(response.data.user));
     yield put(authActions.loginSuccess(response.data.user));
     onNavigate?.();
-  } catch (error) {
+  } catch (error: any) {
     yield put(authActions.loginFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -53,14 +55,16 @@ function* handleSendEmail(action: Action) {
     const response: { data: any } = yield call(authApi.forgotPwd, params);
     yield put(authActions.sendEmailSuccess(response.data.token));
     onNext();
-  } catch (error) {
+  } catch (error: any) {
     yield put(authActions.sendEmailFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Lỗi!",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 

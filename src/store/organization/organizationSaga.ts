@@ -17,14 +17,16 @@ function* handleGetListOrganizations(action: Action) {
       yield call(organizationApi.getListOrganizations, params);
 
     yield put(organizationActions.getListOrganizationsSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(organizationActions.getListOrganizationsFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách tổ chức",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 

@@ -21,10 +21,7 @@ const Empty = ({ title = null, height }: IEmpty) => {
         }}
         fontSize="medium"
       />
-      <h3 style={{ color: "#9E9E9E" }}>
-        {" "}
-        {title || "There is currently no data available"}
-      </h3>
+      <h3 style={{ color: "#9E9E9E" }}> {title || "Không có dữ liệu"}</h3>
     </Stack>
   );
 };

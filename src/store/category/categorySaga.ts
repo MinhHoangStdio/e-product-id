@@ -18,14 +18,16 @@ function* handleGetListCaregories(action: Action) {
     const response: { data: { data: Category[]; paginate: Pagination } } =
       yield call(categoryApi.getListCategories, params);
     yield put(categoryActions.getListCategoriesSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(categoryActions.getListCategoriesFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách danh mục.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -37,14 +39,16 @@ function* handleGetAllListCaregories(action: Action) {
       params
     );
     yield put(categoryActions.getAllListCategoriesSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(categoryActions.getAllListCategoriesFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách danh mục.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -84,14 +88,16 @@ function* handleCreateCategory(action: Action) {
     );
     yield put(categoryActions.getListCategories({}));
     yield put(layoutActions.closeModal());
-  } catch (error) {
+  } catch (error: any) {
     yield put(categoryActions.createCategoryFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Đã có lỗi xảy ra trong quá trình tạo danh mục. Vui lòng thử lại.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -114,14 +120,16 @@ function* handleEditCategory(action: Action) {
     );
     yield put(categoryActions.getListCategories({}));
     yield put(layoutActions.closeModal());
-  } catch (error) {
+  } catch (error: any) {
     yield put(categoryActions.editCategoryFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Đã có lỗi xảy ra trong quá trình chỉnh sửa danh mục. Vui lòng thử lại.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -137,14 +145,16 @@ function* handleDeleteCategory(action: Action) {
       })
     );
     yield put(categoryActions.getListCategories({}));
-  } catch (error) {
+  } catch (error: any) {
     yield put(categoryActions.removeCategoryFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Xóa danh mục thất bại.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 

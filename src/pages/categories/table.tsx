@@ -241,7 +241,7 @@ export default function CategoriesTable() {
             <TableBody>
               <TableRow>
                 <TableCell colSpan={12} scope="full" align="center">
-                  <Empty title="No data" height="400px" />
+                  <Empty title="Không có dữ liệu" height="400px" />
                 </TableCell>
               </TableRow>
             </TableBody>

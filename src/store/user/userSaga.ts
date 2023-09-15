@@ -17,14 +17,16 @@ function* handleGetListUsers(action: Action) {
       yield call(userApi.getListUsers, params);
 
     yield put(userActions.getListUsersSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.getListUsersFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách người dùng",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -40,14 +42,16 @@ function* handleBlockUser(action: Action) {
       })
     );
     yield put(userActions.getListUsers({ limit: EPagination.Limit }));
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.blockUserFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Chặn người dùng thất bại",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -63,14 +67,16 @@ function* handleUnblockUser(action: Action) {
       })
     );
     yield put(userActions.getListUsers({ limit: EPagination.Limit }));
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.unblockUserFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Bỏ chặn người dùng thất bại",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -89,14 +95,16 @@ function* handleCreateUser(action: Action) {
     yield put(userActions.getListUsers({ limit: EPagination.Limit }));
     yield put(userActions.getValidUsers());
     yield put(layoutActions.closeModalUser());
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.createUserFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Tạo mới người dùng thất bại.",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -105,14 +113,16 @@ function* handleGetValidUsers() {
     const response: { data: User[] } = yield call(userApi.getValidUsers);
 
     yield put(userActions.getValidUsersSuccess(response));
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.getValidUsersFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy danh sách người dùng khả dụng",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
@@ -122,14 +132,16 @@ function* handleGetDetailUser(action: Action) {
     const response: { data: User } = yield call(userApi.getDetailUser, id);
 
     yield put(userActions.getDetailUserSuccess(response.data));
-  } catch (error) {
+  } catch (error: any) {
     yield put(userActions.getDetailUserFailed());
-    yield put(
-      alertActions.showAlert({
-        text: "Không thể lấy chi tiết người dùng",
-        type: "error",
-      })
-    );
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
   }
 }
 
