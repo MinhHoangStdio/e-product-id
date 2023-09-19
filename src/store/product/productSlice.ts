@@ -9,6 +9,7 @@ interface productState {
   loadingDetailProduct: boolean;
   loadingApproveProduct: boolean;
   loadingRejectProduct: boolean;
+  loadingBanProduct: boolean;
   pagination: Pagination | null;
 }
 
@@ -19,7 +20,8 @@ const initialState: productState = {
   loadingDetailProduct: false,
   loadingApproveProduct: false,
   loadingRejectProduct: false,
-  pagination: null
+  loadingBanProduct: false,
+  pagination: null,
 };
 
 const productSlice = createSlice({
@@ -67,6 +69,16 @@ const productSlice = createSlice({
     },
     rejectProductFailed(state) {
       state.loadingRejectProduct = false;
+    },
+
+    banProduct(state, action) {
+      state.loadingBanProduct = true;
+    },
+    banProductSuccess(state) {
+      state.loadingBanProduct = false;
+    },
+    banProductFailed(state) {
+      state.loadingBanProduct = false;
     },
   },
 });
