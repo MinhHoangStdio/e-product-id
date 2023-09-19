@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Typography, Box, Stack, Chip, Grid, Divider } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Stack,
+  Chip,
+  Grid,
+  Divider,
+  Alert,
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { consignmentActions } from "../../store/consignment/consignmentSlice";
@@ -12,6 +20,7 @@ import { chainsActions } from "../../store/chains/chainsSlice";
 import ImageSlider from "../../components/ImageSlider";
 import TextDetail from "../../components/TextDetail";
 import { toUpperFirstLetter } from "../../utils/string/toUpperFirstLetter";
+import { EApprovalStatus } from "../../types/enums/product";
 
 const ConsignmentDetail = () => {
   const { id } = useParams();
@@ -75,15 +84,16 @@ const ConsignmentDetail = () => {
                       {consignment.name}
                     </Typography>
                   </Stack>
+                  {consignment?.product?.approval_status ==
+                    EApprovalStatus.Ban && (
+                    <Alert sx={{ px: 1, py: 0, mt: 1 }} severity="error">
+                      Sản phẩm của lô hàng này đã bị chặn.
+                    </Alert>
+                  )}
                   <Stack spacing={2} sx={{ mt: 3 }}>
                     <TextDetail
                       label="Mô tả lô hàng"
                       value={consignment?.description}
-                    />
-                    <Divider />
-                    <TextDetail
-                      label="Trạng thái lô hàng"
-                      value={consignment?.is_sold_out ? "Hết hàng" : "Còn hàng"}
                     />
                     <Divider />
                     <Stack spacing={1}>
@@ -155,9 +165,7 @@ const ConsignmentDetail = () => {
                     <Box pb={2} key={index} pt={2}>
                       <Stack mt={1} direction="row" gap={1} alignItems="center">
                         <Typography variant="h5" sx={{ color: "#4b4b4b" }}>
-                          <b>
-                            {index + 1 + ". "} {chain.name}
-                          </b>
+                          <b>{chain.name}</b>
                         </Typography>
                         {chain?.date_start && (
                           <Chip

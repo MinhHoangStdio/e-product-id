@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { checkAllCondition, handleCheckAll } from "../../utils/table";
 import history from "../../routes/history";
 import { Consignment } from "../../types/consignments";
+import { EApprovalStatus } from "../../types/enums/product";
 
 export default function OrganizationTable() {
   const dispatch = useAppDispatch();
@@ -102,7 +103,7 @@ export default function OrganizationTable() {
     },
     {
       id: "status",
-      align: "left",
+      align: "center",
       disablePadding: false,
       label: "Trạng thái",
       fontSize: "15px",
@@ -159,7 +160,7 @@ export default function OrganizationTable() {
           </TableCell>
 
           <TableCell
-            align="left"
+            align="center"
             className="table-cell"
             sx={{
               minWidth: 150,
@@ -168,10 +169,27 @@ export default function OrganizationTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row?.is_sold_out ? (
-              <Chip label="Hết hàng" color="error" size="small" />
+            {row?.product?.approval_status == EApprovalStatus.Approve ? (
+              <Chip
+                sx={{ width: "120px" }}
+                label="Đã cấp mã QR"
+                color="success"
+                size="small"
+              />
+            ) : row?.product?.approval_status == EApprovalStatus.Ban ? (
+              <Chip
+                sx={{ width: "120px" }}
+                label="Sản phẩm bị chặn"
+                color="error"
+                size="small"
+              />
             ) : (
-              <Chip label="Còn hàng" color="success" size="small" />
+              <Chip
+                sx={{ width: "120px" }}
+                label="Chưa cấp mã QR"
+                color="warning"
+                size="small"
+              />
             )}
           </TableCell>
 
