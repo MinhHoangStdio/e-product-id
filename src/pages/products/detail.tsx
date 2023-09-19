@@ -44,7 +44,7 @@ const ProductDetail = () => {
             ? productActions.approveProduct(payload)
             : status == EApprovalRequest.Reject
             ? productActions.rejectProduct(payload)
-            : productActions.rejectProduct(payload)
+            : productActions.banProduct(payload)
         ),
       buttonText: "Xác nhận",
     };
