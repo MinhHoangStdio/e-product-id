@@ -92,7 +92,7 @@ function* handleRejectProduct(action: Action) {
       params
     );
 
-    yield put(productActions.approveProductSuccess());
+    yield put(productActions.rejectProductSuccess());
     yield put(
       alertActions.showAlert({
         text: "Từ chối phê duyệt sản phẩm thành công",
@@ -113,12 +113,43 @@ function* handleRejectProduct(action: Action) {
   }
 }
 
+function* handleBanProduct(action: Action) {
+  try {
+    const { id, params } = action.payload;
+    const response: { data: Product } = yield call(
+      productApi.approveProduct,
+      id,
+      params
+    );
+
+    yield put(productActions.banProductSuccess());
+    yield put(
+      alertActions.showAlert({
+        text: "Chặn sản phẩm thành công",
+        type: "success",
+      })
+    );
+
+    yield put(productActions.getDetailProduct(id));
+    yield put(layoutActions.closeModalConfirm());
+  } catch (error) {
+    yield put(productActions.banProductFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Chặn sản phẩm thất bại",
+        type: "error",
+      })
+    );
+  }
+}
+
 function* watchProductFlow() {
   yield all([
     takeLatest(productActions.getListProducts.type, handleGetListProducts),
     takeLatest(productActions.getDetailProduct.type, handleGetDetailProduct),
     takeLatest(productActions.approveProduct.type, handleAproveProduct),
     takeLatest(productActions.rejectProduct.type, handleRejectProduct),
+    takeLatest(productActions.banProduct.type, handleBanProduct),
   ]);
 }
 

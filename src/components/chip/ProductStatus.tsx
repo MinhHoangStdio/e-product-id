@@ -3,7 +3,14 @@ import { EApprovalStatus } from "../../types/enums/product";
 
 interface ChipProps {
   label: string;
-  color: "primary" | "secondary" | "info" | "warning" | "error" | "success";
+  color:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "info"
+    | "warning"
+    | "error"
+    | "success";
 }
 
 type ProductStatus = Record<EApprovalStatus, ChipProps>;
@@ -25,12 +32,20 @@ const statusShow: ProductStatus = {
     label: "Chờ duyệt",
     color: "warning",
   },
+  [EApprovalStatus.Ban]: {
+    label: "Đã chặn",
+    color: "default",
+  },
 };
 
 const ProductStatus = ({ status }: { status: EApprovalStatus }) => {
   return (
     <Chip
-      sx={{ color: "white", width: "89px", textAlign: "center" }}
+      sx={{
+        color: status !== EApprovalStatus.Ban ? "white" : "#888888",
+        width: "89px",
+        textAlign: "center",
+      }}
       label={statusShow[status].label}
       color={statusShow[status].color}
       size="small"

@@ -18,26 +18,32 @@ const ProductDetail = () => {
   const product = useAppSelector((state) => state.product.detailProduct);
   const [urlSelected, setUrlSelected] = useState<any>(product?.images?.[0]);
 
-  const confirmApproveOrReject = (data: DetailProduct, status: string) => {
+  const confirmApproveOrRejectorBan = (data: DetailProduct, status: string) => {
     const payload = {
       id: data.id,
       params: {
         status,
       },
     };
-    const isApproved = status == EApprovalRequest.Approve;
     const params: ParamsModalConfirm = {
       title: "Xác nhận",
       content: (
         <span>
-          Bạn có chắc chắn muốn {isApproved ? "xác nhận" : "từ chối"} phê duyệt
-          sản phẩm ngày không <b>"{data.name}"</b>?
+          Bạn có chắc chắn muốn{" "}
+          {status == EApprovalRequest.Approve
+            ? "phê duyệt"
+            : status == EApprovalRequest.Reject
+            ? "từ chối phê duyệt"
+            : "chặn"}{" "}
+          sản phẩm <b>"{data.name}"</b> không ?
         </span>
       ),
       onAction: () =>
         dispatch(
-          isApproved
+          status == EApprovalRequest.Approve
             ? productActions.approveProduct(payload)
+            : status == EApprovalRequest.Reject
+            ? productActions.rejectProduct(payload)
             : productActions.rejectProduct(payload)
         ),
       buttonText: "Xác nhận",
@@ -84,7 +90,7 @@ const ProductDetail = () => {
                     color="secondary"
                     onClick={(e) => {
                       dispatch(() =>
-                        confirmApproveOrReject(
+                        confirmApproveOrRejectorBan(
                           product,
                           EApprovalRequest.Approve
                         )
@@ -100,11 +106,30 @@ const ProductDetail = () => {
                     sx={{ marginLeft: "15px" }}
                     onClick={(e) => {
                       dispatch(() =>
-                        confirmApproveOrReject(product, EApprovalRequest.Reject)
+                        confirmApproveOrRejectorBan(
+                          product,
+                          EApprovalRequest.Reject
+                        )
                       );
                     }}
                   >
                     {"Từ chối"}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="error"
+                    sx={{ marginLeft: "15px" }}
+                    onClick={(e) => {
+                      dispatch(() =>
+                        confirmApproveOrRejectorBan(
+                          product,
+                          EApprovalRequest.Ban
+                        )
+                      );
+                    }}
+                  >
+                    {"Chặn"}
                   </Button>
                 </div>
               </Box>
