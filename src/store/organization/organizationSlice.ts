@@ -10,6 +10,7 @@ interface userState {
   loadingRemoveOrganization: boolean;
   loadingCreateOrganization: boolean;
   loadingDetailOrganization: boolean;
+  loadingRemoveMember: boolean;
   detailOrganization?: Organization;
 }
 
@@ -21,6 +22,7 @@ const initialState: userState = {
   loadingRemoveOrganization: false,
   loadingCreateOrganization: false,
   loadingDetailOrganization: false,
+  loadingRemoveMember: false,
   detailOrganization: undefined,
 };
 
@@ -69,6 +71,16 @@ const organizationSlice = createSlice({
     },
     getDetailOrganizationFailed(state) {
       state.loadingDetailOrganization = false;
+    },
+
+    removeMemberOrganizer(state, action) {
+      state.loadingRemoveMember = true;
+    },
+    removeMemberOrganizerSuccess(state) {
+      state.loadingRemoveMember = false;
+    },
+    removeMemberOrganizerFailed(state) {
+      state.loadingRemoveMember = false;
     },
   },
 });

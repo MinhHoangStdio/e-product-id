@@ -9,17 +9,22 @@ import {
   TableRow,
   SortDirection,
   Checkbox,
+  IconButton,
 } from "@mui/material";
 import OrderTableHead from "../../components/table/OrderTableHead";
 
 // icon
-
+import CancelIcon from "@mui/icons-material/Cancel";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 // empty
 import Empty from "../../components/table/Empty";
 import { HeadCell } from "../../types/table";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { checkAllCondition, handleCheckAll } from "../../utils/table";
 import { User } from "../../types/user";
+import { ParamsModalConfirm } from "../../types/modal";
+import { organizationActions } from "../../store/organization/organizationSlice";
+import { modalActions } from "../../store/modal/modalSlice";
 
 export default function MemberTable() {
   const dispatch = useAppDispatch();
@@ -54,19 +59,24 @@ export default function MemberTable() {
   const [order] = useState("asc");
   const [orderBy] = useState("trackingNo");
 
-  // const confirmDelete = (data: User) => {
-  //   const params: ParamsModalConfirm = {
-  //     title: "Confirm",
-  //     content: (
-  //       <span>
-  //         Do you want to delete a user <b>"{data.name}"</b>?
-  //       </span>
-  //     ),
-  //     onAction: () => dispatch(userActions.removeUser(data.id)), // fix
-  //     buttonText: "Delete",
-  //   };
-  //   dispatch(modalActions.showModal(params));
-  // };
+  const confirmDelete = (data: any) => {
+    const payload = {
+      organizerId: organization?.id,
+      params: { members: [data?.id] },
+    };
+    const params: ParamsModalConfirm = {
+      title: "Xác nhận",
+      content: (
+        <span>
+          Bạn có chắc muốn xóa thành viên <b>"{data.name}"</b> khỏi tổ chức?
+        </span>
+      ),
+      onAction: () =>
+        dispatch(organizationActions.removeMemberOrganizer(payload)), // fix
+      buttonText: "Xóa",
+    };
+    dispatch(modalActions.showModal(params));
+  };
 
   const headCells: HeadCell[] = [
     {
@@ -87,7 +97,7 @@ export default function MemberTable() {
       id: "organizationName",
       align: "left",
       disablePadding: false,
-      label: "Name",
+      label: "Tên",
       fontSize: "15px",
     },
     {
@@ -97,13 +107,13 @@ export default function MemberTable() {
       label: "Email",
       fontSize: "15px",
     },
-    // {
-    //   id: "action",
-    //   align: "center",
-    //   disablePadding: false,
-    //   label: "Actions",
-    //   fontSize: "15px",
-    // },
+    {
+      id: "action",
+      align: "center",
+      disablePadding: false,
+      label: "Hành động",
+      fontSize: "15px",
+    },
   ];
 
   function Row({ row }: { row: User }) {
@@ -148,31 +158,24 @@ export default function MemberTable() {
             {row.email}
           </TableCell>
 
-          {/* <TableCell align="left" className="table-cell">
-            <Box>
-              <Stack direction="row" spacing={1} justifyContent="center">
-                <IconButton
-                  aria-label="info"
-                  onClick={() => {
-                    history.push("/organizations/" + row.id);
-                  }}
-                  color="secondary"
-                >
-                  <InfoIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  sx={{ marginLeft: "0px" }}
-                  aria-label="delete"
-                  onClick={(e) => {
-                    dispatch(() => confirmDelete(row));
-                  }}
-                  color="error"
-                >
-                  <CancelIcon fontSize="medium" />
-                </IconButton>
-              </Stack>
-            </Box>
-          </TableCell> */}
+          <TableCell align="center" className="table-cell">
+            {row.id == organization?.owner_id ? (
+              <IconButton disabled>
+                <DoDisturbIcon fontSize="medium" />
+              </IconButton>
+            ) : (
+              <IconButton
+                sx={{ marginLeft: "0px" }}
+                aria-label="delete"
+                onClick={(e) => {
+                  dispatch(() => confirmDelete(row));
+                }}
+                color="error"
+              >
+                <CancelIcon fontSize="medium" />
+              </IconButton>
+            )}
+          </TableCell>
         </TableRow>
       </React.Fragment>
     );

@@ -13,6 +13,10 @@ const organizationApi = {
     const url = `/organizations/`;
     return axiosClient.post(url, params);
   },
+  removeMember({ organizerId, params }: { organizerId: any; params: any }) {
+    const url = `/organizations/${organizerId}/remove-member`;
+    return axiosClient.patch(url, params);
+  },
 };
 
 export default organizationApi;
