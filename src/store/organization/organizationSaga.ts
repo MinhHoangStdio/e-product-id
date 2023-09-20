@@ -103,6 +103,30 @@ function* handleGetDetailOrganization(action: Action) {
   }
 }
 
+function* handleRemoveMemberOrganizer(action: Action) {
+  try {
+    yield call(organizationApi.removeMember, action.payload);
+    yield put(organizationActions.removeMemberOrganizerSuccess());
+    yield put(
+      organizationActions.getDetailOrganization(action.payload.organizerId)
+    );
+    yield put(
+      alertActions.showAlert({
+        text: "Xóa thành viên thành công",
+        type: "success",
+      })
+    );
+  } catch (error) {
+    yield put(organizationActions.removeMemberOrganizerFailed());
+    yield put(
+      alertActions.showAlert({
+        text: "Xóa thành viên thất bại",
+        type: "error",
+      })
+    );
+  }
+}
+
 function* watchOrganizationFlow() {
   yield all([
     takeLatest(
@@ -120,6 +144,10 @@ function* watchOrganizationFlow() {
     takeLatest(
       organizationActions.getDetailOrganization.type,
       handleGetDetailOrganization
+    ),
+    takeLatest(
+      organizationActions.removeMemberOrganizer.type,
+      handleRemoveMemberOrganizer
     ),
   ]);
 }
