@@ -167,9 +167,6 @@ const ProductDetail = () => {
                 {product.name}
               </Typography>
               <TextDetail label="Tổ chức" value={product?.organization?.name} />
-              {product?.category && (
-                <TextDetail label="Danh mục" value={product?.category?.name} />
-              )}
 
               <TextDetail label="Mô tả sản phẩm" value={product?.description} />
               <Divider />
