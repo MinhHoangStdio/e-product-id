@@ -26,7 +26,12 @@ const CustomButton = ({
   return (
     <Button
       variant="contained"
-      sx={{ bgcolor: `${colors.button[color]} !important` }}
+      sx={{
+        bgcolor: `${colors.button[color]} !important`,
+        "&.Mui-disabled": {
+          color: "#c0c0c0",
+        },
+      }}
       size={size}
       disabled={disabled}
       onClick={onClick}
