@@ -86,6 +86,7 @@ const CreateAndEditCategoryModal = () => {
         id: categorySelected.id,
         onReset() {
           reset();
+          onCloseModal();
         },
       };
       dispatch(categoryActions.editCategory(payload));
