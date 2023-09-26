@@ -119,7 +119,7 @@ export default function MemberTable() {
   function Row({ row }: { row: User }) {
     return (
       <React.Fragment>
-        <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        <TableRow>
           <TableCell component="th" scope="row" align="left">
             <Checkbox
               color="secondary"
