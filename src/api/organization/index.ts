@@ -17,6 +17,11 @@ const organizationApi = {
     const url = `/organizations/${organizerId}/remove-member`;
     return axiosClient.patch(url, params);
   },
+  addMember({ organizerId, memberIds }: { organizerId: any; memberIds: any }) {
+    const url = `/organizations/${organizerId}/add-member`;
+    const params = { members: [...memberIds] };
+    return axiosClient.patch(url, params);
+  },
 };
 
 export default organizationApi;

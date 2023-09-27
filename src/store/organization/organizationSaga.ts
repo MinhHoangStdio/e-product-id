@@ -127,6 +127,35 @@ function* handleRemoveMemberOrganizer(action: Action) {
   }
 }
 
+function* handleAddMember(action: Action) {
+  const memberIds = action.payload.listUser;
+  const organizerId = action.payload.organizerId;
+  try {
+    const response: { data: any } = yield call(organizationApi.addMember, {
+      organizerId,
+      memberIds,
+    });
+    yield put(organizationActions.addMemberSuccess());
+    action.payload.onNext();
+    yield put(
+      alertActions.showAlert({
+        text: "Thêm thành viên thành công",
+        type: "success",
+      })
+    );
+  } catch (error: any) {
+    yield put(organizationActions.addMemberFailed());
+    if (error?.response?.status !== 403) {
+      yield put(
+        alertActions.showAlert({
+          text: `${error?.response?.data?.message}` || "Lỗi",
+          type: "error",
+        })
+      );
+    }
+  }
+}
+
 function* watchOrganizationFlow() {
   yield all([
     takeLatest(
@@ -149,6 +178,7 @@ function* watchOrganizationFlow() {
       organizationActions.removeMemberOrganizer.type,
       handleRemoveMemberOrganizer
     ),
+    takeLatest(organizationActions.addMember.type, handleAddMember),
   ]);
 }
 

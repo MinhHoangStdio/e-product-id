@@ -73,7 +73,7 @@ const CreateAndEditCategoryModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (typeModal == "create") {
       const payload = {
-        params: data,
+        params: { ...data, name: data.name.trim() },
         onReset() {
           reset();
           onCloseModal();
@@ -82,7 +82,7 @@ const CreateAndEditCategoryModal = () => {
       dispatch(categoryActions.createCategory(payload));
     } else if (typeModal == "edit") {
       const payload = {
-        params: data,
+        params: { ...data, name: data.name.trim() },
         id: categorySelected.id,
         onReset() {
           reset();

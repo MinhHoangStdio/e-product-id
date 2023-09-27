@@ -7,6 +7,7 @@ interface LayoutType {
   isOpenModalConfirm: boolean;
   isOpenModalUser: boolean;
   isOpenModalOrganization: boolean;
+  isOpenModalAddMember: boolean;
 }
 
 const initialState: LayoutType = {
@@ -16,6 +17,7 @@ const initialState: LayoutType = {
   isOpenModalConfirm: false,
   isOpenModalUser: false,
   isOpenModalOrganization: false,
+  isOpenModalAddMember: false,
 };
 
 const layoutSlice = createSlice({
@@ -56,6 +58,13 @@ const layoutSlice = createSlice({
     },
     closeModalOrganization(state) {
       state.isOpenModalOrganization = false;
+    },
+
+    openModalAddMember(state) {
+      state.isOpenModalAddMember = true;
+    },
+    closeModalAddMember(state) {
+      state.isOpenModalAddMember = false;
     },
   },
 });

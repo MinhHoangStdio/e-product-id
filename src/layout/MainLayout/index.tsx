@@ -7,6 +7,7 @@ import ConfirmModal from "../../components/modal/ConfirmModal";
 import { colorToken } from "../../theme/colorToken";
 import CreateUserModal from "../../components/modal/user/createUser";
 import CreateOrganizationModal from "../../components/modal/organization/createOrganization";
+import AddMember from "../../components/modal/AddMembers";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const isCollapseSidebar = useAppSelector(
@@ -36,6 +37,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <ConfirmModal />
         <CreateUserModal />
         <CreateOrganizationModal />
+        <AddMember />
       </main>
     </>
   );
