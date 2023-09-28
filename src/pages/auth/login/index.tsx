@@ -39,6 +39,10 @@ const Login = () => {
       yup.object().shape({
         email: yup
           .string()
+          .matches(
+            /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+            "Email không hợp lệ"
+          )
           .email("Email không hợp lệ.")
           .required("Vui lòng nhập email"),
         password: yup.string().required("Vui lòng nhập mật khẩu"),

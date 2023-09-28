@@ -41,6 +41,10 @@ const CreateUserModal = () => {
           .min(4, "Tên người dùng phải có nhiều hơn 4 kí tự."),
         email: yup
           .string()
+          .matches(
+            /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+            "Email không hợp lệ"
+          )
           .required("Vui lòng nhập email")
           .email("Email không hợp lệ."),
         password: yup
