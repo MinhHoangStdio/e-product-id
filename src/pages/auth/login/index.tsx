@@ -55,7 +55,7 @@ const Login = () => {
       authActions.login({
         params: data,
         onNavigate: () => {
-          navigate("/home");
+          navigate("/dashboard");
         },
       })
     );
