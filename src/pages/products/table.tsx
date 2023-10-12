@@ -93,6 +93,13 @@ export default function ProductsTable() {
       fontSize: "15px",
     },
     {
+      id: "viewCount",
+      align: "center",
+      disablePadding: false,
+      label: "Lượt xem",
+      fontSize: "15px",
+    },
+    {
       id: "approvalStatus",
       align: "center",
       disablePadding: false,
@@ -163,6 +170,19 @@ export default function ProductsTable() {
             }}
           >
             {row.description}
+          </TableCell>
+
+          <TableCell
+            align="center"
+            className="table-cell"
+            sx={{
+              minWidth: 200,
+              maxWidth: 200,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {row?.view_count || 0}
           </TableCell>
 
           <TableCell

@@ -17,8 +17,8 @@ export default function StatisticsItemBase({
       sx={{
         width: "100%",
         minHeight: "150px",
-        borderRadius: "8px",
-        border: "1px solid #ccc",
+        borderRadius: "0px",
+        border: "1px solid #9ee8d5",
         bgcolor: "#f7fdfe",
         p: 2,
       }}

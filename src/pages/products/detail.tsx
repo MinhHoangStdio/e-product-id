@@ -169,6 +169,10 @@ const ProductDetail = () => {
               <TextDetail label="Tổ chức" value={product?.organization?.name} />
 
               <TextDetail label="Mô tả sản phẩm" value={product?.description} />
+              <TextDetail
+                label="Lượt xem"
+                value={(product?.view_count || "0") as string}
+              />
               <Divider />
               <Stack spacing={1}>
                 <Stack spacing={1}>
