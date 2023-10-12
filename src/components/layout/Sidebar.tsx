@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { layoutActions } from "../../store/layout/layoutSlice";
 import { authActions } from "../../store/auth/authSlice";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -174,14 +174,15 @@ const SidebarCustom = () => {
           )}
 
           <Box>
-            {/* <Item
+            <Item
               navigate={navigate}
-              title="Dashboard"
-              to="/"
-              icon={<HomeOutlinedIcon />}
+              title="Thống kê"
+              to="/dashboard"
+              icon={<SpaceDashboardIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+              enTitle="dashboard"
+            />
             <Item
               navigate={navigate}
               title="Danh mục"
