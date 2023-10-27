@@ -21,6 +21,8 @@ const PrivateRoutes = () => {
     lazy(() => import("../pages/consignments/detail"))
   );
   const ChangePwd = Loadable(lazy(() => import("../pages/changePwd")));
+  const Order = Loadable(lazy(() => import("../pages/order")));
+  const OrderDetail = Loadable(lazy(() => import("../pages/order/detail")));
 
   return (
     <MainLayout>
@@ -37,6 +39,8 @@ const PrivateRoutes = () => {
         <Route path="/organizations/:id" element={<OrganizationDetail />} />
         <Route path="/consignments" element={<Consignments />} />
         <Route path="/consignments/:id" element={<ConsignmentDetail />} />
+        <Route path="/orders" element={<Order />} />
+        <Route path="/orders/:id" element={<OrderDetail />} />
         <Route path="/change-password" element={<ChangePwd />} />
       </Routes>
     </MainLayout>
