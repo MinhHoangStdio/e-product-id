@@ -174,7 +174,7 @@ const ConsignmentDetail = () => {
                           />
                         )}
                         <CustomButton
-                          label="Delete"
+                          label="Xóa"
                           color="error"
                           onClick={() => confirmDelete(chain)}
                         />

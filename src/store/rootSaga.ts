@@ -8,6 +8,7 @@ import { organizationSaga } from "./organization/organizationSaga";
 import { consignmentSaga } from "./consignment/consignmentSaga";
 import { chainsSaga } from "./chains/chainSaga";
 import { dashboardSaga } from "./dashboard/dashboardSaga";
+import { orderSaga } from "./order/orderSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     consignmentSaga(),
     chainsSaga(),
     dashboardSaga(),
+    orderSaga(),
   ]);
 }

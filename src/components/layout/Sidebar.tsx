@@ -16,6 +16,7 @@ import userDefaultImg from "../../assets/user/user.png";
 import PeopleIcon from "@mui/icons-material/People";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import LockIcon from "@mui/icons-material/Lock";
+import ViewListIcon from "@mui/icons-material/ViewList";
 
 const Item = ({
   title,
@@ -203,6 +204,24 @@ const SidebarCustom = () => {
             />
             <Item
               navigate={navigate}
+              title="Lô hàng"
+              enTitle="consignments"
+              to="/consignments"
+              icon={<ListAltIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
+              title="Đơn hàng"
+              enTitle="orders"
+              to="/orders"
+              icon={<ViewListIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              navigate={navigate}
               title="Người dùng"
               enTitle="users"
               to="/users"
@@ -216,15 +235,6 @@ const SidebarCustom = () => {
               enTitle="organizations"
               to="/organizations"
               icon={<CorporateFareIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              navigate={navigate}
-              title="Lô hàng"
-              enTitle="consignments"
-              to="/consignments"
-              icon={<ListAltIcon />}
               selected={selected}
               setSelected={setSelected}
             />
