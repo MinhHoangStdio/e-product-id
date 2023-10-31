@@ -31,7 +31,7 @@ const InfoPage = () => {
       <Grid sx={{ p: 1, mb: 2 }} item xs={6} columnGap={4}>
         <Box p={4} border={"2px solid skyblue"} borderRadius={"5px"}>
           <Typography mb={5} variant="h3">
-            Sản phẩm
+            Đơn hàng
           </Typography>
           <OrderStatisticsPieChart />
         </Box>
