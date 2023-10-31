@@ -8,6 +8,12 @@ export interface ProductStatistic {
   total_view: number;
 }
 
+export interface OrderStatistic {
+  total: number;
+  pending: number;
+  completed: number;
+}
+
 export interface ConsignmentStatistic {
   total: number;
   qr_release: number;
@@ -19,4 +25,5 @@ export interface AdminStatistics {
   user_count: number;
   organization_count: number;
   category_count: number;
+  order_count: OrderStatistic;
 }

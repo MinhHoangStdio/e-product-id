@@ -8,6 +8,8 @@ import UserStatistic from "../../components/dashboard/UserStatistic";
 import OrganizationStatistic from "../../components/dashboard/OrganizationStatistic";
 import CategoryStatistic from "../../components/dashboard/CategoryStatistic";
 import ProductStatisticsPieChart from "../../components/chart/ProductStatisticsPieChart";
+import OrderStatisticsPieChart from "../../components/chart/OrderStatisticsPieChart";
+
 const InfoPage = () => {
   const dispatch = useAppDispatch();
 
@@ -18,7 +20,7 @@ const InfoPage = () => {
   return (
     <Grid sx={{ p: 1 }} container>
       <Grid item xs={12}></Grid>
-      <Grid sx={{ p: 1, mb: 2 }} item xs={7} columnGap={4}>
+      <Grid sx={{ p: 1, mb: 2 }} item xs={6} columnGap={4}>
         <Box p={4} border={"2px solid skyblue"} borderRadius={"5px"}>
           <Typography mb={5} variant="h3">
             Sản phẩm
@@ -26,9 +28,16 @@ const InfoPage = () => {
           <ProductStatisticsPieChart />
         </Box>
       </Grid>
-      <Grid item xs={1}></Grid>
+      <Grid sx={{ p: 1, mb: 2 }} item xs={6} columnGap={4}>
+        <Box p={4} border={"2px solid skyblue"} borderRadius={"5px"}>
+          <Typography mb={5} variant="h3">
+            Sản phẩm
+          </Typography>
+          <OrderStatisticsPieChart />
+        </Box>
+      </Grid>
 
-      <Grid sx={{ p: 1 }} item xs={4}>
+      <Grid sx={{ p: 1 }} item xs={3}>
         <ProductStatistic />
       </Grid>
       <Grid sx={{ p: 1 }} item xs={3}>

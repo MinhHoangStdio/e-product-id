@@ -33,12 +33,12 @@ function handleChartData(productStatistics: ProductStatistic | undefined) {
     {
       value: productStatistics.approved,
       label: `Đã xác nhận: ${productStatistics.approved}`,
-      color: "green",
+      color: "#339966",
     },
     {
       value: productStatistics.pending,
       label: `Chưa yêu cầu: ${productStatistics.pending}`,
-      color: "blue",
+      color: "#00CCFF",
     },
     {
       value: productStatistics.requesting,
@@ -48,12 +48,12 @@ function handleChartData(productStatistics: ProductStatistic | undefined) {
     {
       value: productStatistics.banned,
       label: `Đã bị chặn: ${productStatistics.banned}`,
-      color: "gray",
+      color: "#777777",
     },
     {
       value: productStatistics.rejected,
       label: `Đã từ chối: ${productStatistics.rejected}`,
-      color: "red",
+      color: "#EE0000",
     },
   ];
 }
