@@ -10,7 +10,6 @@ export interface Product {
   images?: string[];
   category_id: number;
   organizer_id: number;
-  view_count?: number;
   approval_status: EApprovalStatus;
 }
 
@@ -22,7 +21,9 @@ export interface DetailProduct {
   images?: string[];
   category_id: number;
   approval_status: EApprovalStatus;
-  view_count?: number;
+  views?: number;
+  unit_price?: number;
+  unit?: string;
   category?: Category;
   organizer_id: number;
   organization: Organization;
