@@ -182,7 +182,7 @@ export default function ProductsTable() {
               textOverflow: "ellipsis",
             }}
           >
-            {row?.view_count || 0}
+            {row?.views || 0}
           </TableCell>
 
           <TableCell

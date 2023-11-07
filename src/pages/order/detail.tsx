@@ -9,6 +9,7 @@ import LoadingPage from "../../components/LoadingPage";
 import OrderStatus from "../../components/order/OrderStatus";
 import LinkTextDetail from "../../components/order/LinkTextDetail";
 import noImg from "../../assets/emptyData/no-picture.png";
+import { formatVNDCurrency } from "../../utils/formatCurrency";
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -71,6 +72,26 @@ const OrderDetail = () => {
                       value={order.created_at}
                     />
                     <TextDetail label="Ghi chú" value={order?.note || ""} />
+                    <Divider />
+                    <TextDetail
+                      label="Số lượng"
+                      value={(order?.amount || "0") as string}
+                    />
+                    <TextDetail
+                      label="Đơn giá"
+                      value={
+                        formatVNDCurrency(order?.product?.unit_price || 0) +
+                        ((order?.product?.unit &&
+                          " / " + order?.product?.unit) ||
+                          "")
+                      }
+                    />
+                    <TextDetail
+                      label="Thành tiền"
+                      value={formatVNDCurrency(
+                        (order?.amount || 0) * (order?.product?.unit_price || 0)
+                      )}
+                    />
                     <Divider />
                     <Stack direction="row" alignItems="center" spacing={3}>
                       <Typography variant="h4" sx={{ fontWeight: 600 }}>

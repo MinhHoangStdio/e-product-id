@@ -11,6 +11,7 @@ import { EApprovalRequest, EApprovalStatus } from "../../types/enums/product";
 import ProductStatus from "../../components/chip/ProductStatus";
 import TextDetail from "../../components/TextDetail";
 import { toUpperFirstLetter } from "../../utils/string/toUpperFirstLetter";
+import { formatVNDCurrency } from "../../utils/formatCurrency";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -134,44 +135,22 @@ const ProductDetail = () => {
                 </div>
               </Box>
             )}
-            {/* <Typography variant="h2">{product.name}</Typography>
-            <Typography sx={{ fontSize: "16px", marginTop: "20px" }}>
-              <b>Tên sản phẩm:</b> {product.name}
-            </Typography>
-            <Typography sx={{ fontSize: "16px" }}>
-              <b>Tổ chức:</b> {product?.organization?.name}
-            </Typography>
-            {product?.category && (
-              <Typography sx={{ fontSize: "16px" }}>
-                <b>Danh mục:</b> {product?.category?.name}
-              </Typography>
-            )}
-            <Typography sx={{ fontSize: "16px" }}>
-              <b>Trạng thái phê duyệt:</b>{" "}
-              <ProductStatus status={product.approval_status} />
-            </Typography>
-            <Typography sx={{ fontSize: "16px" }}>
-              <b>Mô tả:</b> <br />
-              {product?.description}
-            </Typography>
-            {product?.payload &&
-              Object.entries(product.payload).map(
-                ([key, value]: [string, any]) => (
-                  <Typography sx={{ fontSize: "16px" }} key={key}>
-                    <b>{key}:</b> {value}
-                  </Typography>
-                )
-              )} */}
             <Stack spacing={2} sx={{ mt: 3 }}>
               <Typography variant="h3" sx={{ fontWeight: 600 }}>
                 {product.name}
               </Typography>
               <TextDetail label="Tổ chức" value={product?.organization?.name} />
-
+              <TextDetail
+                label="Đơn giá"
+                value={
+                  formatVNDCurrency(product?.unit_price || 0) +
+                  ((product?.unit && " / " + product?.unit) || "")
+                }
+              />
               <TextDetail label="Mô tả sản phẩm" value={product?.description} />
               <TextDetail
                 label="Lượt xem"
-                value={(product?.view_count || "0") as string}
+                value={(product?.views || "0") as string}
               />
               <Divider />
               <Stack spacing={1}>
